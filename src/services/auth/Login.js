@@ -5,10 +5,20 @@ import Colors from '../constants/colors';
 import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
 import RouteNames from '../constants/route-names';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const storeData = async value => {
+    try {
+      await AsyncStorage.setItem('@User_Token', value);
+      console.log('added successfully');
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   const handleLogin = async () => {
     try {
       const response = await fetch(
@@ -25,7 +35,8 @@ const Login = ({navigation}) => {
         },
       );
       const json = await response.json();
-      console.log(json);
+      // console.log(json);
+      storeData(json);
     } catch (error) {
       alert(error.message);
     }
