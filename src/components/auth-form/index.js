@@ -11,7 +11,9 @@ const Form = ({
   autoCapitalize,
   autoCorrect,
   value,
+  value2,
   onChangeText,
+  onChangeText2,
 }) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -22,7 +24,7 @@ const Form = ({
         keyboardType={keyboardType}
         style={styles.input}
         autoCapitalize={autoCapitalize}
-        autoCorrect={autoCorrect}
+        autoCorrect={autoCorrect && autoCorrect}
         value={value}
         onChangeText={onChangeText}
       />
@@ -34,8 +36,8 @@ const Form = ({
         style={styles.input}
         autoCapitalize={autoCapitalize}
         autoCorrect={autoCorrect}
-        value={value}
-        onChangeText={onChangeText}
+        value={value2}
+        onChangeText={onChangeText2}
         secureTextEntry
       />
     </SafeAreaView>

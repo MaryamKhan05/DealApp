@@ -5,7 +5,7 @@ import Colors from '../constants/colors';
 import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
 
-const Login = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
 
   const handleSubmit = () => {
@@ -20,7 +20,7 @@ const Login = () => {
       }),
     });
   };
-  
+
   return (
     <SafeAreaView style={styles.container}>
       <Form
@@ -31,7 +31,7 @@ const Login = () => {
         keyboardType="email"
         style={styles.input}
         autoCapitalize="none"
-        autoCorrect="false"
+        autoCorrect={false}
         value={email}
         onChangeText={newEmail => setEmail(newEmail)}
       />
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default SignUp;

@@ -4,9 +4,32 @@ import {StyleSheet, SafeAreaView, TouchableOpacity, Text} from 'react-native';
 import Colors from '../constants/colors';
 import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
+import RouteNames from '../constants/route-names';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(
+        `https://project-production-7b65.up.railway.app/User/userSignin`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -18,14 +41,22 @@ const Login = () => {
         keyboardType="email"
         style={styles.input}
         autoCapitalize="none"
-        autoCorrect="false"
+        autoCorrect={false}
         value={email}
+        value2={password}
         onChangeText={newEmail => setEmail(newEmail)}
+        onChangeText2={newpass => setPassword(newpass)}
       />
-      <TouchableOpacity title="Sign Up" style={styles.btn}>
+      <TouchableOpacity
+        title="Sign Up"
+        style={styles.btn}
+        onPress={handleLogin}>
         <Text style={styles.btnText}>Log In</Text>
       </TouchableOpacity>
-      <NavLink routeName="Signup" text="Don't have an account? Sign Up" />
+      <NavLink
+        routeName={RouteNames.SignUpScreen}
+        text="Don't have an account? Sign Up"
+      />
     </SafeAreaView>
   );
 };
