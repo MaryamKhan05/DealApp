@@ -1,16 +1,24 @@
 import React, {useState} from 'react';
-import {StyleSheet, SafeAreaView, TouchableOpacity, Text} from 'react-native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  View,
+} from 'react-native';
 
 import Colors from '../constants/colors';
 import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
 import RouteNames from '../constants/route-names';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const storeData = async value => {
+    console.log('in store')
     try {
       await AsyncStorage.setItem('@User_Token', value);
       console.log('added successfully');
@@ -21,6 +29,10 @@ const Login = ({navigation}) => {
 
   const handleLogin = async () => {
     try {
+      if (!email || !password) {
+        alert('Please fill out all fields');
+        return;
+      }
       const response = await fetch(
         `https://project-production-7b65.up.railway.app/User/userSignin`,
         {
@@ -35,8 +47,12 @@ const Login = ({navigation}) => {
         },
       );
       const json = await response.json();
-      // console.log(json);
-      storeData(json);
+      // if (json.status === 'success') {
+        storeData(json);
+        navigation.navigate(RouteNames.mainHomeScreen);
+      // } else {
+      //   alert('something went wrong');
+      // }
     } catch (error) {
       alert(error.message);
     }
@@ -59,7 +75,7 @@ const Login = ({navigation}) => {
         onChangeText2={newpass => setPassword(newpass)}
       />
       <TouchableOpacity
-        title="Sign Up"
+        // title="Sign Up"
         style={styles.btn}
         onPress={handleLogin}>
         <Text style={styles.btnText}>Log In</Text>
@@ -101,7 +117,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   btn: {
-    // marginBottom: 60,
+    marginTop: 20,
   },
 });
 

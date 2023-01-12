@@ -1,32 +1,87 @@
 import React, {useState} from 'react';
-import {StyleSheet, SafeAreaView, TouchableOpacity, Text} from 'react-native';
-
+import {
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  TextInput,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Colors from '../constants/colors';
-import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
+import RouteNames from '../constants/route-names';
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFName] = useState('');
+  const [lastName, setLName] = useState('');
 
-  const handleSubmit = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title,
-        body,
-      }),
-    });
+  const storeData = async value => {
+    try {
+      await AsyncStorage.setItem('@User_Token', value);
+      console.log('added successfully');
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!firstName || !lastName || !email || !password) {
+      alert('Please fill out all fields');
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://project-production-7b65.up.railway.app/User/userSignup`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const json = await response.json();
+      // if (json.status === 'success') {
+      //   console.log(json);
+        storeData(json);
+        navigation.navigate(RouteNames.mainHomeScreen);
+      // } else {
+      //   alert(json.message);
+      // }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Form
-        headerText="Sign Up"
-        placeholder1="user@gmail.com"
-        placeholder2="password"
+      <Text style={styles.heading}>Sign Up</Text>
+      <TextInput
+        placeholder="First Name"
+        placeholderTextColor={Colors.greyishWhite}
+        style={styles.input}
+        autoCapitalize="none"
+        autoCorrect={false}
+        value={firstName}
+        onChangeText={newFirstName => setFName(newFirstName)}
+      />
+      <TextInput
+        placeholder="Last Name"
+        placeholderTextColor={Colors.greyishWhite}
+        style={styles.input}
+        autoCorrect={false}
+        value={lastName}
+        onChangeText={newLastName => setLName(newLastName)}
+      />
+      <TextInput
+        placeholder="Email"
         placeholderTextColor={Colors.greyishWhite}
         keyboardType="email"
         style={styles.input}
@@ -35,6 +90,18 @@ const SignUp = () => {
         value={email}
         onChangeText={newEmail => setEmail(newEmail)}
       />
+      <TextInput
+        placeholder="Password"
+        placeholderTextColor={Colors.greyishWhite}
+        keyboardType="password"
+        style={styles.input}
+        autoCapitalize="none"
+        autoCorrect={false}
+        value={password}
+        onChangeText={newPassword => setPassword(newPassword)}
+        secureTextEntry
+      />
+
       <TouchableOpacity
         title="Sign Up"
         style={styles.btn}

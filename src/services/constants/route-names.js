@@ -11,7 +11,7 @@ const RouteNames = {
   searchScreen: 'SearchScreen',
   mapScreen: 'MapScreen',
   mainHomeScreen: 'mainHomeScreen',
-  LoginScreen: 'LoginScreen',
+  LoginScreen: 'Login',
   SignUpScreen: 'SignUpScreen',
 };
 export default RouteNames;
