@@ -1,5 +1,5 @@
 //import liraries
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -20,10 +20,11 @@ import {
 } from 'react-native-responsive-dimensions';
 import AppImages from '../../assets/images';
 import HotDealItems from '../../components/hot-deal-items';
+
 const StoreDetailScreen = ({navigation}) => {
+  
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View>
+      <SafeAreaView style={{flex:1}}>
         <ScrollView
           contentContainerStyle={styles.scrollViewContainer}
           showsVerticalScrollIndicator={false}>
@@ -150,6 +151,8 @@ const StoreDetailScreen = ({navigation}) => {
               ]}>
               <View style={styles.lineView} />
               <View style={styles.row}>
+
+                {/* {-------------------------------} */}
                 <Text style={styles.currentLocationText}>🥛 Diary</Text>
               </View>
               <View style={styles.lineView} />
@@ -165,6 +168,8 @@ const StoreDetailScreen = ({navigation}) => {
               ]}>
               <View style={styles.lineView} />
               <View style={styles.row}>
+
+                {/* {---------------------} */}
                 <Text style={styles.currentLocationText}>🥩 Meat</Text>
               </View>
               <View style={styles.lineView} />
@@ -179,8 +184,7 @@ const StoreDetailScreen = ({navigation}) => {
             <Text style={styles.goToStoreText}>Go To Store Location</Text>
           </TouchableOpacity>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
   );
 };
 

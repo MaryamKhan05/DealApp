@@ -48,13 +48,14 @@ const SignUp = ({navigation}) => {
         },
       );
       const json = await response.json();
-      // if (json.status === 'success') {
-      //   console.log(json);
+      if (json.status === '200') {
+        // alert(json.status);
+        console.log(json);
         storeData(json);
         navigation.navigate(RouteNames.mainHomeScreen);
-      // } else {
-      //   alert(json.message);
-      // }
+      } else {
+        alert(json.message);
+      }
     } catch (error) {
       alert(error.message);
     }

@@ -18,19 +18,11 @@ import PromotionItems from '../../components/promotion-items';
 import InviteCard from '../../components/invite-card';
 
 const MainHomeScreen = ({navigation}) => {
-
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch('https://project-production-7b65.up.railway.app/User/getFavStore')
-      .then(response => response.json())
-      .then(json => setData(json));
-  }, []);
-
   return (
     <ScrollView
       contentContainerStyle={styles.scrollViewContainer}
       showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
+      <View>
         <View style={styles.homeHeaderContainer}>
           <View style={styles.userDetailContainer}>
             <TouchableOpacity style={styles.locationSelectContainer}>
@@ -83,11 +75,14 @@ const MainHomeScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
+
+        {/* {-------------------------------} */}
+
         <View style={styles.listHeaderContainer}>
           <Text style={styles.headerText}>Great Deals on items near you</Text>
           <Text style={styles.seeAllText}>See All</Text>
         </View>
-        <DealItems data={[1, 2, 3, 4]} />
+        <DealItems data={[1, 2, 3, 4]}  />
         <View style={styles.listHeaderContainer}>
           <Text style={styles.headerText}>Promotions nearby you</Text>
           <Text style={styles.seeAllText}>See All</Text>

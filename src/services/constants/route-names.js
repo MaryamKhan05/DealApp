@@ -13,5 +13,6 @@ const RouteNames = {
   mainHomeScreen: 'mainHomeScreen',
   LoginScreen: 'Login',
   SignUpScreen: 'SignUpScreen',
+  DealItems:'DealItems',
 };
 export default RouteNames;

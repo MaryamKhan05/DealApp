@@ -52,6 +52,11 @@ const MainStackNavigation = () => {
           name={RouteNames.editPasswordScreen}
           options={options}
         />
+         <Stack.Screen
+          component={App.DealItems}
+          name={RouteNames.DealItems}
+          options={options}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-  Text,
-  View,
-} from 'react-native';
+import {StyleSheet, SafeAreaView, TouchableOpacity, Text} from 'react-native';
 
 import Colors from '../constants/colors';
 import Form from '../../components/auth-form';
@@ -18,7 +12,7 @@ const Login = ({navigation}) => {
   const [password, setPassword] = useState('');
 
   const storeData = async value => {
-    console.log('in store')
+    // console.log('in store');
     try {
       await AsyncStorage.setItem('@User_Token', value);
       console.log('added successfully');
@@ -47,12 +41,13 @@ const Login = ({navigation}) => {
         },
       );
       const json = await response.json();
-      // if (json.status === 'success') {
+      if (json.status === '200') {
+        // alert(json.status);
         storeData(json);
         navigation.navigate(RouteNames.mainHomeScreen);
-      // } else {
-      //   alert('something went wrong');
-      // }
+      } else {
+        alert('something went wrong');
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -75,7 +70,6 @@ const Login = ({navigation}) => {
         onChangeText2={newpass => setPassword(newpass)}
       />
       <TouchableOpacity
-        // title="Sign Up"
         style={styles.btn}
         onPress={handleLogin}>
         <Text style={styles.btnText}>Log In</Text>
