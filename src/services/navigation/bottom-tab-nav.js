@@ -7,6 +7,7 @@ import Colors from '../constants/colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native';
 
 const options = {
   headerShown: false,
@@ -16,9 +17,9 @@ const options = {
   tabBarInactiveBackgroundColor: Colors.white,
   tabBarStyle: {
     backgroundColor: Colors.white,
-    margin: 0,
-    height: 60,
-    paddingBottom: 5,
+    marginBottom: 0,
+    height: 70,
+    paddingBottom:20,
     paddingTop: 7,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -27,11 +28,14 @@ const options = {
     borderTopWidth: 0.2,
     position: 'absolute',
     overflow: 'hidden',
-    elevation: 10,
+    elevation: 15,
   },
 };
 const HomeBottomTabNavigation = () => {
   return (
+   
+
+  
     <Tab.Navigator screenOptions={options}>
       <Tab.Screen
         component={App.MainHomeScreen}
@@ -84,6 +88,7 @@ const HomeBottomTabNavigation = () => {
         }}
       />
     </Tab.Navigator>
+    
   );
 };
 export default HomeBottomTabNavigation;
