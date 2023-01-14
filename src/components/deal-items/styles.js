@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
         width: responsiveWidth(25),
         height: responsiveHeight(14),
         resizeMode: 'cover',
+        // height:50,width:50,
         borderRadius: 10,
+        backgroundColor:'red'
     },
     detailsContainer: {
         marginLeft: responsiveWidth(2),

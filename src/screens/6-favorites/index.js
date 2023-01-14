@@ -1,4 +1,3 @@
-//import liraries
 import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, Image, TextInput} from 'react-native';
 import styles from './styles';
@@ -58,7 +57,7 @@ const FavoritesScreen = () => {
         <View style={styles.listHeaderContainer}>
           <Text style={styles.headerText}>Favourite Stores</Text>
         </View>
-        <PromotionItems data={[1, 2, 3, 4]} />
+        <PromotionItems  />
         <View style={styles.listHeaderContainer}>
           <Text style={styles.headerText}>Favourite Products</Text>
         </View>

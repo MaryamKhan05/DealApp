@@ -20,10 +20,10 @@ const HotDealItems = ({data}) => {
   const [token, setToken] = useState(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
   );
-  const headers = new Headers({
+  const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
-  });
+  };
   useEffect(() => {
     fetch('https://project-production-7b65.up.railway.app/Admin/getAllStores', {
       method: 'GET',
@@ -46,10 +46,6 @@ const HotDealItems = ({data}) => {
   };
 
   const handleFavourite = async storeId => {
-    // if (!firstName || !lastName || !email || !password) {
-    //   alert('Please fill out all fields');
-    //   return;
-    // }
     try {
       const response = await fetch(
         `https://project-production-7b65.up.railway.app/User/addFavStore`,
@@ -59,23 +55,14 @@ const HotDealItems = ({data}) => {
             userId: token,
             storeId,
           }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers,
         },
       );
 
       const json = await response.json();
-      // if (json.status === '200') {
-      console.log(response.json);
       alert(json.status);
       console.log(json);
-      // console.log(json);
       storeData(json);
-      // navigation.navigate(RouteNames.mainHomeScreen);
-      // } else {
-      //   alert(json.message);
-      // }
     } catch (error) {
       alert(error.message);
     }

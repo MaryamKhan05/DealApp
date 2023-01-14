@@ -306,6 +306,8 @@ PODS:
     - React-Core
   - react-native-pager-view (6.1.1):
     - React-Core
+  - react-native-quick-base64 (2.0.5):
+    - React-Core
   - react-native-safe-area-context (4.4.1):
     - RCT-Folly
     - RCTRequired
@@ -443,6 +445,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
+  - react-native-quick-base64 (from `../node_modules/react-native-quick-base64`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -528,6 +531,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
+  react-native-quick-base64:
+    :path: "../node_modules/react-native-quick-base64"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -604,6 +609,7 @@ SPEC CHECKSUMS:
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-maps: 085f614cf14d3637b2048bb9752da5b1c27c2886
   react-native-pager-view: 3c66c4e2f3ab423643d07b2c7041f8ac48395f72
+  react-native-quick-base64: e657e9197e61b60a9dec49807843052b830da254
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
