@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity, Text, Image, TextInput} from 'react-native';
+import {View, TouchableOpacity, Text, Image, TextInput, SafeAreaView} from 'react-native';
 import styles from './styles';
 import {Icon} from 'react-native-elements';
 import Colors from '../../services/constants/colors';
@@ -14,6 +14,9 @@ import ProductItems from '../../components/product-items';
 
 const FavoritesScreen = () => {
   return (
+    <SafeAreaView style={{backgroundColor: Colors.blue, flex:1}}>
+
+    
     <ScrollView
       contentContainerStyle={styles.scrollViewContainer}
       showsVerticalScrollIndicator={false}>
@@ -64,6 +67,7 @@ const FavoritesScreen = () => {
         <ProductItems data={[1, 2, 3, 4, 5, 6]} />
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

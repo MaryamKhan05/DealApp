@@ -44,8 +44,8 @@ const HomeBottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        component={App.MainHomeScreen}
-        name={RouteNames.searchScreen}
+        component={App.StoreDetailScreen}
+        name={RouteNames.storeDetailScreen}
         options={{
           title: 'Search',
           tabBarIcon: ({focused, color, size}) => (

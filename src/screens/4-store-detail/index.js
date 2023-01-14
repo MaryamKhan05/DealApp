@@ -22,7 +22,7 @@ import HotDealItems from '../../components/hot-deal-items';
 
 const StoreDetailScreen = ({navigation}) => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}>
@@ -172,14 +172,14 @@ const StoreDetailScreen = ({navigation}) => {
           </View>
           <HotDealItems data={[1, 2, 3, 4]} />
         </View>
+        <View style={styles.bottomSheet}>
+          <TouchableOpacity
+            style={styles.goToStoreButton}
+            onPress={() => navigation.navigate(RouteNames.storeLocationScreen)}>
+            <Text style={styles.goToStoreText}>Go To Store Location</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
-      <View style={styles.bottomSheet}>
-        <TouchableOpacity
-          style={styles.goToStoreButton}
-          onPress={() => navigation.navigate(RouteNames.storeLocationScreen)}>
-          <Text style={styles.goToStoreText}>Go To Store Location</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };

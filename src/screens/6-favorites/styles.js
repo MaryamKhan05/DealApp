@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: Colors.white
+        backgroundColor: Colors.white,
+        // marginRight:10
     },
     homeHeaderContainer: {
         backgroundColor: Colors.blue,

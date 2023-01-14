@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  SafeAreaView,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
@@ -101,7 +102,7 @@ const HotDealItems = ({data}) => {
     );
   };
   return (
-    <View style={styles.flatListContainer}>
+    <SafeAreaView style={styles.flatListContainer}>
       {/* <Text>data{JSON.stringify()} </Text> */}
       {!isloading ? (
         <FlatList
@@ -113,7 +114,7 @@ const HotDealItems = ({data}) => {
       ) : (
         <ActivityIndicator />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

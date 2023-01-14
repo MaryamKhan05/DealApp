@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  SafeAreaView,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
@@ -104,7 +105,7 @@ const ProductItems = ({data, navigation}) => {
     );
   };
   return (
-    <View style={styles.flatListContainer}>
+    <SafeAreaView style={styles.flatListContainer}>
       {!isloading ? (
         <FlatList
           showsHorizontalScrollIndicator={false}
@@ -117,7 +118,7 @@ const ProductItems = ({data, navigation}) => {
       )}
 
       {/* <Text>{JSON.stringify(deals.favProds)}</Text> */}
-    </View>
+    </SafeAreaView>
   );
 };
 

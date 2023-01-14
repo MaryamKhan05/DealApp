@@ -51,15 +51,16 @@ const styles = StyleSheet.create({
         textDecorationLine: 'line-through',
         marginLeft: responsiveWidth(1)
     },
-    // heartIcon: {
-    //     position: 'absolute',
-    //     top: responsiveHeight(2),
-    //     right: responsiveWidth(2.5),
-    //     zIndex: 10,
-    // },
+    heartIcon: {
+        // position: 'absolute',
+        // top: responsiveHeight(2),
+        right: responsiveWidth(2.5),
+        zIndex: 10,
+    },
     flatListContainer: {
         marginBottom: responsiveHeight(8),
         marginTop: responsiveWidth(2.5),
+        // marginRight:responsiveWidth(1),
     },
     row: {
         flexDirection: 'row',

@@ -141,14 +141,14 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     bottomSheet: {
-        backgroundColor: Colors.white,
-        position: 'absolute',
-        bottom: responsiveHeight(0),
-        zIndex: 20,
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-        paddingVertical: responsiveWidth(5),
-        width: responsiveWidth(100),
+    //     backgroundColor: Colors.white,
+    //     position: 'absolute',
+        bottom: responsiveHeight(1.5),
+    //     // zIndex: 20,
+    //     borderTopRightRadius: 20,
+    //     borderTopLeftRadius: 20,
+    //     paddingVertical: responsiveWidth(1),
+    //     width: responsiveWidth(100),
     },
     goToStoreButton: {
         width: responsiveWidth(90),
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: Colors.blue,
         borderRadius: 10,
+        marginBottom:20
     },
     goToStoreText: {
         color: Colors.white,

@@ -1,6 +1,14 @@
 //import liraries
 import React, {Component, useState, useEffect} from 'react';
-import {View, TouchableOpacity, Text, Image, TextInput} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Image,
+  TextInput,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native';
 import styles from './styles';
 
 import {Icon} from 'react-native-elements';
@@ -19,78 +27,88 @@ import InviteCard from '../../components/invite-card';
 
 const MainHomeScreen = ({navigation}) => {
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollViewContainer}
-      showsVerticalScrollIndicator={false}>
-      <View>
-        <View style={styles.homeHeaderContainer}>
-          <View style={styles.userDetailContainer}>
-            <TouchableOpacity style={styles.locationSelectContainer}>
-              <View style={styles.locationIconContainer}>
-                <Entypo
-                  size={responsiveFontSize(4)}
-                  color={Colors.white}
-                  name="location-pin"
-                />
+    <>
+      <SafeAreaView style={{ flex:1, backgroundColor:Colors.blue}}>
+        <StatusBar backgroundColor="blue" />
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContainer}
+          showsVerticalScrollIndicator={false}>
+          <View>
+            <View style={styles.homeHeaderContainer}>
+              <View style={styles.userDetailContainer}>
+                <TouchableOpacity style={styles.locationSelectContainer}>
+                  <View style={styles.locationIconContainer}>
+                    <Entypo
+                      size={responsiveFontSize(4)}
+                      color={Colors.white}
+                      name="location-pin"
+                    />
+                  </View>
+                  <View>
+                    <View style={styles.locationSelectContainer}>
+                      <Text style={styles.currentLocationText}>
+                        Current Location
+                      </Text>
+                      <AntDesign
+                        size={responsiveFontSize(2)}
+                        color={Colors.white}
+                        name="caretdown"
+                      />
+                    </View>
+                    <Text style={styles.addressText}>New York USA</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.locationIconContainer}>
+                  <Image
+                    source={AppImages.userDummy}
+                    style={styles.userImage}
+                  />
+                </TouchableOpacity>
               </View>
-              <View>
+              <View style={styles.searchContainer}>
                 <View style={styles.locationSelectContainer}>
-                  <Text style={styles.currentLocationText}>
-                    Current Location
-                  </Text>
-                  <AntDesign
-                    size={responsiveFontSize(2)}
-                    color={Colors.white}
-                    name="caretdown"
+                  <TouchableOpacity>
+                    <Feather
+                      size={responsiveFontSize(4)}
+                      color={'rgba(255,255,255,0.7)'}
+                      name="search"
+                    />
+                  </TouchableOpacity>
+                  <TextInput
+                    placeholder="Search any shop or product..."
+                    style={styles.searchText}
+                    placeholderTextColor={Colors.white}
                   />
                 </View>
-                <Text style={styles.addressText}>New York USA</Text>
+                <TouchableOpacity style={styles.filterContainer}>
+                  <SimpleLineIcons
+                    size={responsiveFontSize(3)}
+                    color={Colors.blue}
+                    name="equalizer"
+                  />
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.locationIconContainer}>
-              <Image source={AppImages.userDummy} style={styles.userImage} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.searchContainer}>
-            <View style={styles.locationSelectContainer}>
-              <TouchableOpacity>
-                <Feather
-                  size={responsiveFontSize(4)}
-                  color={'rgba(255,255,255,0.7)'}
-                  name="search"
-                />
-              </TouchableOpacity>
-              <TextInput
-                placeholder="Search any shop or product..."
-                style={styles.searchText}
-                placeholderTextColor={Colors.white}
-              />
             </View>
-            <TouchableOpacity style={styles.filterContainer}>
-              <SimpleLineIcons
-                size={responsiveFontSize(3)}
-                color={Colors.blue}
-                name="equalizer"
-              />
-            </TouchableOpacity>
+
+            {/* {-------------------------------} */}
+
+            <View style={styles.listHeaderContainer}>
+              <Text style={styles.headerText}>
+                Great Deals on items near you
+              </Text>
+              <Text style={styles.seeAllText}>See All</Text>
+            </View>
+            <DealItems data={[1, 2, 3, 4]} />
+            <View style={styles.listHeaderContainer}>
+              <Text style={styles.headerText}>Promotions nearby you</Text>
+              <Text style={styles.seeAllText}>See All</Text>
+            </View>
+            <PromotionItems data={[1, 2, 3, 4]} />
+            <InviteCard />
           </View>
-        </View>
-
-        {/* {-------------------------------} */}
-
-        <View style={styles.listHeaderContainer}>
-          <Text style={styles.headerText}>Great Deals on items near you</Text>
-          <Text style={styles.seeAllText}>See All</Text>
-        </View>
-        <DealItems data={[1, 2, 3, 4]}  />
-        <View style={styles.listHeaderContainer}>
-          <Text style={styles.headerText}>Promotions nearby you</Text>
-          <Text style={styles.seeAllText}>See All</Text>
-        </View>
-        <PromotionItems data={[1, 2, 3, 4]} />
-        <InviteCard />
-      </View>
-    </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 };
 export default MainHomeScreen;

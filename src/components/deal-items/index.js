@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  SafeAreaView
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
@@ -86,10 +87,12 @@ const DealItems = ({data}) => {
     const imageUri = `data:${imageType};base64,${base64String}`;
     console.log(imageUri);
     return (
-     
+    
+
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigation.navigate(RouteNames.storeDetailScreen)}>
+        // onPress={() => navigation.navigate(RouteNames.storeDetailScreen)}
+        >
         <TouchableOpacity
           style={styles.heartIcon}
           onPress={() => handleFavourite(item._id)}>
@@ -98,7 +101,7 @@ const DealItems = ({data}) => {
             name="heart"
             size={responsiveFontSize(2)}
             color={item?.selected == true ? Colors.red : Colors.grey}
-          />
+            />
         </TouchableOpacity>
         <Image source={{uri:imageUri}} style={styles.image} />
         <View style={styles.detailsContainer}>
@@ -110,11 +113,12 @@ const DealItems = ({data}) => {
           </View>
         </View>
       </TouchableOpacity>
+   
     );
   };
 
   return (
-    <View style={styles.flatListContainer}>
+    <SafeAreaView style={styles.flatListContainer}>
       {!isloading ? (
         <FlatList
           horizontal
@@ -128,7 +132,7 @@ const DealItems = ({data}) => {
       
 
       {/* <Text> {JSON.stringify(deals.products)}</Text> */}
-    </View>
+    </SafeAreaView>
   );
 };
 
