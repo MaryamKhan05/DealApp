@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: Colors.white
+        backgroundColor: Colors.white,
+        height:'100%'
     },
     backButton: {
         marginRight: responsiveWidth(30),
