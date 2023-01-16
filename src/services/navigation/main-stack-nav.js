@@ -18,16 +18,6 @@ const MainStackNavigation = () => {
           options={options}
         />
         <Stack.Screen
-          component={App.Login}
-          name={RouteNames.LoginScreen}
-          options={options}
-        />
-        <Stack.Screen
-          component={App.SignUp}
-          name={RouteNames.SignUpScreen}
-          options={options}
-        />
-        <Stack.Screen
           component={HomeBottomTabNavigation}
           name={RouteNames.mainHomeScreen}
           options={options}
@@ -52,11 +42,27 @@ const MainStackNavigation = () => {
           name={RouteNames.editPasswordScreen}
           options={options}
         />
-         <Stack.Screen
+        <Stack.Screen
           component={App.DealItems}
           name={RouteNames.DealItems}
           options={options}
         />
+        <Stack.Screen
+          component={App.Login}
+          name={RouteNames.LoginScreen}
+          options={options}
+        />
+        <Stack.Screen
+          component={App.SignUp}
+          name={RouteNames.SignUpScreen}
+          options={options}
+        />
+        <Stack.Screen
+          component={App.HotDealItems}
+          name={RouteNames.HotDealsItems}
+          options={options}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

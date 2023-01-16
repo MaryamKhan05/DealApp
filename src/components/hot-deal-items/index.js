@@ -14,7 +14,10 @@ import AppImages from '../../assets/images';
 import Colors from '../../services/constants/colors';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import RouteNames from '../../services/constants/route-names';
 const HotDealItems = ({data}) => {
+  const navigation = useNavigation();
   const [deals, setDeals] = useState([]);
   const [isloading, setIsLoading] = useState(true);
 
@@ -46,20 +49,39 @@ const HotDealItems = ({data}) => {
     }
   };
 
-  const handleFavourite = async storeId => {
+  const handleFavourite = async _id => {
+    let isLoggedIn = false;
+    const checkIsLoggedIn = async () => {
+      try {
+        const value = await AsyncStorage.getItem('loggedIn');
+        if (value === 'true') {
+          isLoggedIn = true;
+        } else {
+          isLoggedIn = false;
+        }
+      } catch (e) {
+        isLoggedIn = false;
+      }
+    };
+    checkIsLoggedIn();
+    if (!isLoggedIn) {
+      alert('Please login to add product as favorite');
+      navigation.navigate(RouteNames.LoginScreen);
+      return;
+    }
     try {
       const response = await fetch(
         `https://project-production-7b65.up.railway.app/User/addFavStore`,
+
         {
           method: 'POST',
           body: JSON.stringify({
             userId: token,
-            storeId,
+            productId: _id,
           }),
           headers,
         },
       );
-
       const json = await response.json();
       alert(json.status);
       console.log(json);
@@ -68,7 +90,6 @@ const HotDealItems = ({data}) => {
       alert(error.message);
     }
   };
-
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity style={styles.container}>

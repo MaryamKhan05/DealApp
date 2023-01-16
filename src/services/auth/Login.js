@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, SafeAreaView, TouchableOpacity, Text} from 'react-native';
-
+import {storeToken} from '../../storage/storage';
+import {getToken} from '../../storage/storage';
 import Colors from '../constants/colors';
 import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
@@ -20,7 +21,15 @@ const Login = ({navigation}) => {
       console.log(e.message);
     }
   };
-
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await getToken();
+      if (token) {
+        navigation.navigate(RouteNames.mainHomeScreen);
+      }
+    };
+    checkToken();
+  }, []);
   const handleLogin = async () => {
     try {
       if (!email || !password) {
@@ -43,7 +52,9 @@ const Login = ({navigation}) => {
       const json = await response.json();
       if (json.status === '200') {
         // alert(json.status);
-        storeData(json);
+        // storeData(json);
+        storeToken(json);
+
         navigation.navigate(RouteNames.mainHomeScreen);
       } else {
         alert('something went wrong');
@@ -69,9 +80,7 @@ const Login = ({navigation}) => {
         onChangeText={newEmail => setEmail(newEmail)}
         onChangeText2={newpass => setPassword(newpass)}
       />
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={handleLogin}>
+      <TouchableOpacity style={styles.btn} onPress={handleLogin}>
         <Text style={styles.btnText}>Log In</Text>
       </TouchableOpacity>
       <NavLink

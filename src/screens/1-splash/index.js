@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {
   responsiveHeight,
@@ -9,7 +9,7 @@ import RouteNames from '../../services/constants/route-names';
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate(RouteNames.LoginScreen);
+      navigation.navigate(RouteNames.mainHomeScreen);
     }, 1500);
   }, []);
   return <Image source={AppImages.splashScreen} style={styles.splash} />;

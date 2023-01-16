@@ -10,6 +10,8 @@ import ProfileViewScreen from './7-profile';
 import EditProfileScreen from './8-edit-profile';
 import EditPasswordScreen from './9-edit-password';
 import DealItems from '../components/deal-items';
+import HotDealItems from '../components/hot-deal-items';
+
 export const App = {
   SplashScreen,
   MainHomeScreen,
@@ -23,4 +25,5 @@ export const App = {
   Login,
   SignUp,
   DealItems,
+  HotDealItems
 };

@@ -14,5 +14,6 @@ const RouteNames = {
   LoginScreen: 'Login',
   SignUpScreen: 'SignUpScreen',
   DealItems:'DealItems',
+  HotDealsItems:'HotDeals',
 };
 export default RouteNames;

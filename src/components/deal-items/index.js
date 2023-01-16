@@ -15,6 +15,7 @@ import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Buffer} from '@craftzdog/react-native-buffer';
+import RouteNames from '../../services/constants/route-names';
 
 const DealItems = ({data}) => {
   const navigation = useNavigation();
@@ -23,6 +24,7 @@ const DealItems = ({data}) => {
   );
   const [deals, setDeals] = useState([]);
   const [isloading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
@@ -56,10 +58,29 @@ const DealItems = ({data}) => {
   };
 
   const handleFavourite = async _id => {
-    console.log('item id is', _id);
+    let isLoggedIn = false;
+    const checkIsLoggedIn = async () => {
+      try {
+        const value = await AsyncStorage.getItem('loggedIn');
+        if (value === 'true') {
+          isLoggedIn = true;
+        } else {
+          isLoggedIn = false;
+        }
+      } catch (e) {
+        isLoggedIn = false;
+      }
+    };
+    checkIsLoggedIn();
+    if (!isLoggedIn) {
+      alert('Please login to add product as favorite');
+      navigation.navigate(RouteNames.LoginScreen);
+      return;
+    }
     try {
       const response = await fetch(
         `https://project-production-7b65.up.railway.app/User/addFavProduct`,
+
         {
           method: 'POST',
           body: JSON.stringify({
@@ -69,7 +90,6 @@ const DealItems = ({data}) => {
           headers,
         },
       );
-
       const json = await response.json();
       alert(json.status);
       console.log(json);
@@ -78,7 +98,6 @@ const DealItems = ({data}) => {
       alert(error.message);
     }
   };
-
   const renderItem = ({item}) => {
     const imageData = item.image.data.data;
     const imageType = item.image.contentType;
