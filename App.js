@@ -4,8 +4,22 @@ import MainStackNav from './src/services/navigation/main-stack-nav';
 import Auth from './src/services/auth/authNav';
 import MainHomeScreen from './src/screens/2-main-home';
 import FavoritesScreen from './src/screens/6-favorites';
+import { configureStore } from '@reduxjs/toolkit';
+import { userTokenSlice } from './src/storage/Reducer';
+import { Provider } from 'react-redux';
+
+//creating store
+const store=  configureStore({
+  reducer: userTokenSlice
+ })
 const App = () => {
-  return <MainStackNav />;
+  return  (
+    <Provider store={store}>
+
+      <MainStackNav />
+    </Provider>
+
+  )
   // return <Login/>
 //  return <Auth/>;
 // return <MainHomeScreen/>

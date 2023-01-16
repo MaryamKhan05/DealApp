@@ -14,10 +14,10 @@ import AppImages from '../../assets/images';
 import Colors from '../../services/constants/colors';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
 const ProductItems = ({data, navigation}) => {
-  const [token, setToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
-  );
+  const userToken = useSelector((state)=>state.userToken)
+  const [token, setToken] = useState( userToken);
   const [deals, setDeals] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const headers = {

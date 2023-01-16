@@ -8,13 +8,13 @@ import RouteNames from '../../services/constants/route-names';
 import {ScrollView} from 'react-native';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AppImages from '../../assets/images';
-import {getToken} from '../../storage/storage';
+import {getToken, removeToken} from '../../storage/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileViewScreen = ({navigation}) => {
   const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('@User_Token');
+      removeToken()
       navigation.navigate(RouteNames.LoginScreen);
     } catch (error) {
       console.log(error);

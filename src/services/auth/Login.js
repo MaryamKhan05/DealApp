@@ -7,8 +7,9 @@ import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
 import RouteNames from '../constants/route-names';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useSelector } from 'react-redux';
 const Login = ({navigation}) => {
+const token= useSelector((state)=>state.userToken)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,12 +23,10 @@ const Login = ({navigation}) => {
     }
   };
   useEffect(() => {
-    const checkToken = async () => {
-      const token = await getToken();
+    
       if (token) {
         navigation.navigate(RouteNames.mainHomeScreen);
       }
-    };
     checkToken();
   }, []);
   const handleLogin = async () => {

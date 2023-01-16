@@ -1,9 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { updateUserToken } from './Reducer';
 
-export const storeToken = async (token) => {
+export const storeToken = (token) => {
+    const dispatch= useDispatch()
     try {
         if(token){
-            await AsyncStorage.setItem('@User_Token', token);
+            
+             AsyncStorage.setItem('@User_Token', JSON.stringify(token) ).then((value)=>{
+console.log(value)
+dispatch(updateUserToken(value))
+             })
             console.log('added token successfully');
         }
     } catch (error) {
@@ -21,8 +28,12 @@ export const getToken = async () => {
 };
 
 export const removeToken = async () => {
+    const dispatch= useDispatch()
     try {
         await AsyncStorage.removeItem('@User_Token');
+        AsyncStorage.getItem('@User_Token').then((value)=>{
+            dispatch(updateUserToken(value))
+        })
     } catch (error) {
         console.log(error);
     }

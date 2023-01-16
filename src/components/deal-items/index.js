@@ -16,12 +16,13 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Buffer} from '@craftzdog/react-native-buffer';
 import RouteNames from '../../services/constants/route-names';
+import { useSelector } from 'react-redux';
 
 const DealItems = ({data}) => {
+  const userTokenValue =useSelector((state)=>state.userToken)
+  const dummyToken= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0'
   const navigation = useNavigation();
-  const [token, setToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
-  );
+  const [token, setToken] = useState(userTokenValue);
   const [deals, setDeals] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,14 +49,6 @@ const DealItems = ({data}) => {
       .catch(errr => alert(errr.message));
   }, []);
 
-  const storeData = async value => {
-    try {
-      await AsyncStorage.setItem('@User_Token', value);
-      console.log('added successfully');
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
 
   const handleFavourite = async _id => {
     let isLoggedIn = false;
