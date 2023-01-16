@@ -1,11 +1,10 @@
 //import liraries
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   TouchableOpacity,
   Text,
   Image,
-  TextInput,
   SafeAreaView,
 } from 'react-native';
 import styles from './styles';
@@ -15,6 +14,7 @@ import RouteNames from '../../services/constants/route-names';
 import {ScrollView} from 'react-native';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AppImages from '../../assets/images';
+
 const ProfileViewScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{flex:1, backgroundColor:Colors.blue}}>
@@ -218,5 +218,4 @@ const ProfileViewScreen = ({navigation}) => {
   );
 };
 
-//make this component available to the app
 export default ProfileViewScreen;

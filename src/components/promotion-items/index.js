@@ -31,7 +31,6 @@ const PromotionItems = () => {
       },
     )
       .then(response => response.json())
-      // .then(console.log('promotion items'))// getting LOG  {"favstore": [], "status": "200"}
       .then(json => setDeals(json))
       .finally(() => setIsLoading(false))
       .catch(errr => alert(errr.message));
@@ -62,10 +61,6 @@ const PromotionItems = () => {
       const json = await response.json();
       // alert(json.status);
       console.log(json);
-      // storeData(json);
-      // deals(deals.filter(item => item.storeId !== storeId));
-      console.log('deals are',deals.stores.storeId);
-      // setDeals(deals.filter(item => item.storeId !== storeId));
     } catch (error) {
       alert(error.message);
     }

@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -37,8 +37,7 @@ const ProductItems = ({data, navigation}) => {
       },
     )
       .then(response => response.json())
-      // .then(console.log('fav products'))
-      .then(json => setDeals(json)) // getting response "LOG  {"favProds": [], "status": "200"}"
+      .then(json => setDeals(json))
       .finally(() => setIsLoading(false))
       .catch(errr => alert(errr.message));
   }, []);
@@ -69,7 +68,6 @@ const ProductItems = ({data, navigation}) => {
       alert(json.status);
       console.log(json);
       storeData(json);
-      // deals(deals.filter(item => item.storeId !== storeId));
     } catch (error) {
       alert(error.message);
     }
@@ -110,13 +108,11 @@ const ProductItems = ({data, navigation}) => {
         <FlatList
           showsHorizontalScrollIndicator={false}
           data={deals.favProds}
-          // data={data}
           renderItem={renderItem}
         />
       ) : (
         <ActivityIndicator />
       )}
-
       {/* <Text>{JSON.stringify(deals.favProds)}</Text> */}
     </SafeAreaView>
   );

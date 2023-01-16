@@ -6,19 +6,18 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
 import Colors from '../../services/constants/colors';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import {useNavigation} from '@react-navigation/native';
-import RouteNames from '../../services/constants/route-names';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Buffer} from '@craftzdog/react-native-buffer';
+
 const DealItems = ({data}) => {
   const navigation = useNavigation();
-  // console.log(navigation);
   const [token, setToken] = useState(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
   );
@@ -87,12 +86,7 @@ const DealItems = ({data}) => {
     const imageUri = `data:${imageType};base64,${base64String}`;
     console.log(imageUri);
     return (
-    
-
-      <TouchableOpacity
-        style={styles.container}
-        // onPress={() => navigation.navigate(RouteNames.storeDetailScreen)}
-        >
+      <TouchableOpacity style={styles.container}>
         <TouchableOpacity
           style={styles.heartIcon}
           onPress={() => handleFavourite(item._id)}>
@@ -101,9 +95,9 @@ const DealItems = ({data}) => {
             name="heart"
             size={responsiveFontSize(2)}
             color={item?.selected == true ? Colors.red : Colors.grey}
-            />
+          />
         </TouchableOpacity>
-        <Image source={{uri:imageUri}} style={styles.image} />
+        <Image source={{uri: imageUri}} style={styles.image} />
         <View style={styles.detailsContainer}>
           <Text style={styles.headerText}>{item.name}</Text>
           <Text style={styles.seeAllText}>Walmart</Text>
@@ -113,7 +107,6 @@ const DealItems = ({data}) => {
           </View>
         </View>
       </TouchableOpacity>
-   
     );
   };
 
@@ -129,7 +122,6 @@ const DealItems = ({data}) => {
       ) : (
         <ActivityIndicator />
       )}
-      
 
       {/* <Text> {JSON.stringify(deals.products)}</Text> */}
     </SafeAreaView>

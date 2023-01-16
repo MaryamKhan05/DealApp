@@ -1,5 +1,5 @@
 //import liraries
-import React, {Component, useState, useEffect} from 'react';
+import React from 'react';
 import {
   View,
   TouchableOpacity,
@@ -11,13 +11,11 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-import {Icon} from 'react-native-elements';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Colors from '../../services/constants/colors';
-import RouteNames from '../../services/constants/route-names';
 import {ScrollView} from 'react-native';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AppImages from '../../assets/images';
@@ -28,7 +26,7 @@ import InviteCard from '../../components/invite-card';
 const MainHomeScreen = ({navigation}) => {
   return (
     <>
-      <SafeAreaView style={{ flex:1, backgroundColor:Colors.blue}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>
         <StatusBar backgroundColor="blue" />
         <ScrollView
           contentContainerStyle={styles.scrollViewContainer}

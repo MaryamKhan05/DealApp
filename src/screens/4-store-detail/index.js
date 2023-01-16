@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -6,6 +6,9 @@ import {
   Image,
   TextInput,
   SafeAreaView,
+  Button,
+  ImageBackground,
+  FlatList,
 } from 'react-native';
 import styles from './styles';
 import {Icon} from 'react-native-elements';
@@ -17,10 +20,18 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import Entypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Modal from 'react-native-modal';
 import AppImages from '../../assets/images';
 import HotDealItems from '../../components/hot-deal-items';
 
 const StoreDetailScreen = ({navigation}) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>
       <ScrollView
@@ -39,6 +50,103 @@ const StoreDetailScreen = ({navigation}) => {
             </TouchableOpacity>
             <Text style={styles.addressText}>Store Details</Text>
           </View>
+
+          <Button
+            style={{marginBottom: 20}}
+            title="Show modal"
+            onPress={toggleModal}
+          />
+
+          <Modal isVisible={isModalVisible}>
+            <View
+              style={{
+                height: '85%',
+                width: '97%',
+                backgroundColor: Colors.white,
+                borderRadius: 8,
+              }}>
+              <ImageBackground
+                source={require('../../assets/images/modal.png')}
+                style={{
+                  width: '99%',
+                  height: '65%',
+                  alignSelf: 'center',
+                  borderRadius: 8,
+                }}>
+                <TouchableOpacity onPress={toggleModal}>
+                  <Entypo
+                    name="circle-with-cross"
+                    color="white"
+                    size={30}
+                    style={{alignSelf: 'flex-end', margin: 10}}
+                  />
+                </TouchableOpacity>
+              </ImageBackground>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: '-46%',
+                  // backgroundColor: Colors.grey,
+                  // backgroundColor:Colors.greyishWhite,
+                  backgroundColor:'#C4C4C4',
+                  paddingVertical: 10,
+                }}>
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    fontSize: 18,
+                    fontStyle: 'normal',
+                    marginLeft: 10,
+                  }}>
+                  Milk Pack
+                </Text>
+                <AntDesign
+                  name="heart"
+                  size={30}
+                  color={Colors.white}
+                  style={{marginRight: 10}}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  // backgroundColor: 'red',
+                  margin: 10,
+                  borderRadius: 10,
+                  padding: 5,
+                  width: 318,
+                  height: 68,
+                  borderWidth: 1,
+                  borderColor: '#DFE5F3',
+                }}>
+                <View
+                  style={{
+                    backgroundColor: '#D7EEFF',
+                    height: 48,
+                    width: 44,
+                    alignSelf: 'center',
+                    marginHorizontal: 5,
+                  }}></View>
+                <View style={{flexDirection: 'column'}}>
+                  <Text>Store Name</Text>
+                  <Text>Click to View available Branches</Text>
+                  <Text style={{color: Colors.orange}}>$ 20</Text>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: Colors.blue,
+                    borderRadius: 10,
+                    height: 20,
+                    width: 45,
+                    alignItems: 'center',
+                    marginRight: 50,
+                  }}>
+                  <Text style={{color: Colors.white}}>View</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
           <View>
             <View style={styles.storeDetailsContainer}>
               <Image

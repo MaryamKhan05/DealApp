@@ -7,7 +7,6 @@ import Colors from '../constants/colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { SafeAreaView } from 'react-native';
 
 const options = {
   headerShown: false,
@@ -19,7 +18,7 @@ const options = {
     backgroundColor: Colors.white,
     marginBottom: 0,
     height: 70,
-    paddingBottom:20,
+    paddingBottom: 20,
     paddingTop: 7,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -33,9 +32,6 @@ const options = {
 };
 const HomeBottomTabNavigation = () => {
   return (
-   
-
-  
     <Tab.Navigator screenOptions={options}>
       <Tab.Screen
         component={App.MainHomeScreen}
@@ -61,17 +57,17 @@ const HomeBottomTabNavigation = () => {
         component={App.Favorites}
         name={RouteNames.favoriteScreen}
         options={{
-            title: 'Favourites',
-            tabBarIcon: ({focused, color, size}) => (
-                <Entypo size={size} color={color} name="heart" />
-                ),
-            }}
-            />
+          title: 'Favourites',
+          tabBarIcon: ({focused, color, size}) => (
+            <Entypo size={size} color={color} name="heart" />
+          ),
+        }}
+      />
       <Tab.Screen
         component={App.NearbyShopsScreen}
         name={RouteNames.nearbyShopScreen}
         options={{
-        title: 'Nearby',
+          title: 'Nearby',
           tabBarIcon: ({focused, color, size}) => (
             <Entypo size={size} color={color} name="location-pin" />
           ),
@@ -88,7 +84,6 @@ const HomeBottomTabNavigation = () => {
         }}
       />
     </Tab.Navigator>
-    
   );
 };
 export default HomeBottomTabNavigation;
