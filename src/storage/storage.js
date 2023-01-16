@@ -8,8 +8,8 @@ export const storeToken = (token) => {
         if(token){
             
              AsyncStorage.setItem('@User_Token', JSON.stringify(token) ).then((value)=>{
-console.log(value)
-dispatch(updateUserToken(value))
+console.log(token)
+dispatch(updateUserToken(token))
              })
             console.log('added token successfully');
         }
