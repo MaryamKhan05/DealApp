@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -25,10 +25,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Modal from 'react-native-modal';
 import AppImages from '../../assets/images';
 import HotDealItems from '../../components/hot-deal-items';
+import SearchContext from '../../context/searchContext';
 
 const StoreDetailScreen = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [ModalVisible2, setModalVisible2] = useState(false);
+  const value = useContext(SearchContext); 
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -41,6 +43,7 @@ const StoreDetailScreen = ({navigation}) => {
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}>
+          {/* <Text>{value}</Text> */}
         <View style={styles.container}>
           <View style={styles.homeHeaderContainer}>
             <TouchableOpacity onPress={() => navigation.goBack()}>

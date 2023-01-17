@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -16,10 +16,11 @@ import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import RouteNames from '../../services/constants/route-names';
+import SearchContext from '../../context/searchContext';
+
 const HotDealItems = ({data}) => {
   const navigation = useNavigation();
-  const [deals, setDeals] = useState([]);
-  const [isloading, setIsLoading] = useState(true);
+  const deals = useContext(SearchContext);
 
   const [token, setToken] = useState(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
@@ -28,17 +29,6 @@ const HotDealItems = ({data}) => {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
-  useEffect(() => {
-    fetch('https://project-production-7b65.up.railway.app/Admin/getAllStores', {
-      method: 'GET',
-      headers,
-    })
-      .then(response => response.json())
-      // .then(console.log('promotion items'))// getting LOG  {"favstore": [], "status": "200"}
-      .then(json => setDeals(json))
-      .finally(() => setIsLoading(false))
-      .catch(errr => alert(errr.message));
-  }, []);
 
   const storeData = async value => {
     try {
@@ -115,7 +105,7 @@ const HotDealItems = ({data}) => {
             <Text style={styles.seeAllText}>{item.endDate}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.discountedPriceText}>{item.storeId}</Text>
+            <Text style={styles.discountedPriceText}>{item.branchName}</Text>
             <Text style={styles.oldPriceText}>$ 50</Text>
           </View>
         </View>
@@ -124,8 +114,8 @@ const HotDealItems = ({data}) => {
   };
   return (
     <SafeAreaView style={styles.flatListContainer}>
-      {/* <Text>data{JSON.stringify()} </Text> */}
-      {!isloading ? (
+      {/* <Text>data{deals} </Text> */}
+      {deals !== null ? (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}

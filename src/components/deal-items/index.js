@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component, useEffect, useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -16,11 +16,16 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Buffer} from '@craftzdog/react-native-buffer';
 import RouteNames from '../../services/constants/route-names';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
+import SearchContext from '../../context/searchContext';
 
-const DealItems = ({data}) => {
-  const userTokenValue =useSelector((state)=>state.userToken)
-  const dummyToken= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0'
+const DealItems = () => {
+  const items = useContext(SearchContext);
+
+  console.log(items);
+  const userTokenValue = useSelector(state => state.userToken);
+  const dummyToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0';
   const navigation = useNavigation();
   const [token, setToken] = useState(userTokenValue);
   const [deals, setDeals] = useState([]);
@@ -30,25 +35,6 @@ const DealItems = ({data}) => {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
-
-  useEffect(() => {
-    fetch(
-      'https://project-production-7b65.up.railway.app/Admin/getNearbyProducts',
-      {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          lattitude: 90.0715,
-          longnitude: 29.951,
-        }),
-      },
-    )
-      .then(response => response.json())
-      .then(json => setDeals(json))
-      .finally(() => setIsLoading(false))
-      .catch(errr => alert(errr.message));
-  }, []);
-
 
   const handleFavourite = async _id => {
     let isLoggedIn = false;
@@ -96,7 +82,6 @@ const DealItems = ({data}) => {
     const imageType = item.image.contentType;
     const base64String = Buffer.from(imageData).toString('base64');
     const imageUri = `data:${imageType};base64,${base64String}`;
-    console.log(imageUri);
     return (
       <TouchableOpacity style={styles.container}>
         <TouchableOpacity
@@ -124,18 +109,18 @@ const DealItems = ({data}) => {
 
   return (
     <SafeAreaView style={styles.flatListContainer}>
-      {!isloading ? (
+      {items !== null ? (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={deals.products}
+          data={items.products}
           renderItem={renderItem}
         />
       ) : (
         <ActivityIndicator />
       )}
 
-      {/* <Text> {JSON.stringify(deals.products)}</Text> */}
+      {/* <Text> {JSON.stringify(items)}</Text> */}
     </SafeAreaView>
   );
 };
