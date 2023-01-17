@@ -28,9 +28,13 @@ import HotDealItems from '../../components/hot-deal-items';
 
 const StoreDetailScreen = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [ModalVisible2, setModalVisible2] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+  };
+  const toggleModal2 = () => {
+    setModalVisible2(!ModalVisible2);
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>
@@ -56,6 +60,11 @@ const StoreDetailScreen = ({navigation}) => {
             title="Show modal"
             onPress={toggleModal}
           />
+          <Button
+            style={{marginBottom: 20}}
+            title="Show modal 2"
+            onPress={toggleModal2}
+          />
 
           <Modal isVisible={isModalVisible}>
             <View
@@ -74,6 +83,97 @@ const StoreDetailScreen = ({navigation}) => {
                   borderRadius: 8,
                 }}>
                 <TouchableOpacity onPress={toggleModal}>
+                  <Entypo
+                    name="circle-with-cross"
+                    color="white"
+                    size={30}
+                    style={{alignSelf: 'flex-end', margin: 10}}
+                  />
+                </TouchableOpacity>
+              </ImageBackground>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: '-46%',
+                  // backgroundColor: Colors.grey,
+                  // backgroundColor:Colors.greyishWhite,
+                  backgroundColor:'#C4C4C4',
+                  paddingVertical: 10,
+                }}>
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    fontSize: 18,
+                    fontStyle: 'normal',
+                    marginLeft: 10,
+                  }}>
+                  Milk Pack
+                </Text>
+                <AntDesign
+                  name="heart"
+                  size={30}
+                  color={Colors.white}
+                  style={{marginRight: 10}}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  // backgroundColor: 'red',
+                  margin: 10,
+                  borderRadius: 10,
+                  padding: 5,
+                  width: 318,
+                  height: 68,
+                  borderWidth: 1,
+                  borderColor: '#DFE5F3',
+                }}>
+                <View
+                  style={{
+                    backgroundColor: '#D7EEFF',
+                    height: 48,
+                    width: 44,
+                    alignSelf: 'center',
+                    marginHorizontal: 5,
+                  }}></View>
+                <View style={{flexDirection: 'column'}}>
+                  <Text>Store Name</Text>
+                  <Text>Click to View available Branches</Text>
+                  <Text style={{color: Colors.orange}}>$ 20</Text>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: Colors.blue,
+                    borderRadius: 10,
+                    height: 20,
+                    width: 45,
+                    alignItems: 'center',
+                    marginRight: 50,
+                  }}>
+                  <Text style={{color: Colors.white}}>View</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
+          <Modal isVisible={ModalVisible2}>
+            <View
+              style={{
+                height: '85%',
+                width: '97%',
+                backgroundColor: Colors.white,
+                borderRadius: 8,
+              }}>
+              <ImageBackground
+                source={require('../../assets/images/modal.png')}
+                style={{
+                  width: '99%',
+                  height: '65%',
+                  alignSelf: 'center',
+                  borderRadius: 8,
+                }}>
+                <TouchableOpacity onPress={toggleModal2}>
                   <Entypo
                     name="circle-with-cross"
                     color="white"
