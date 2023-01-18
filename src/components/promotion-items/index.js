@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
@@ -7,10 +7,12 @@ import Colors from '../../services/constants/colors';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import {ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SearchContext from '../../context/searchContext';
 
 const PromotionItems = () => {
   const [deals, setDeals] = useState([]);
   const [isloading, setIsLoading] = useState(true);
+  const filteredDeals=useContext(SearchContext);
 
   const [token, setToken] = useState(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
@@ -89,11 +91,11 @@ const PromotionItems = () => {
   };
   return (
     <View style={styles.flatListContainer}>
-      {!isloading ? (
+      {filteredDeals!==null ? (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={deals.stores}
+          data={filteredDeals.stores}
           renderItem={renderItem}
           keyExtractor={item => item.storeId}
           handleDeleteFav={handleDeleteFav}
@@ -101,7 +103,7 @@ const PromotionItems = () => {
       ) : (
         <ActivityIndicator />
       )}
-      {/* <Text> {JSON.stringify(deals.stores)}</Text> */}
+      {/* <Text> {JSON.stringify(filteredDeals.stores)}</Text> */}
     </View>
   );
 };

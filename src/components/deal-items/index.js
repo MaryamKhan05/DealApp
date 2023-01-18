@@ -20,9 +20,14 @@ import {useSelector} from 'react-redux';
 import SearchContext from '../../context/searchContext';
 
 const DealItems = () => {
-  const items = useContext(SearchContext);
 
-  console.log(items);
+  const items = useContext(SearchContext);
+  const [search, setSearch] = useState('');
+  const filteredItems = useContext(SearchContext);
+  const filteredDeals = useContext(SearchContext);
+  // console.log('filtered deals are::::::::::::::::::::::', filteredDeals);
+  // console.log('filtered items are::::::::::::::::::::::::',filteredItems);
+  // console.log(items);
   const userTokenValue = useSelector(state => state.userToken);
   const dummyToken =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0';
@@ -109,18 +114,19 @@ const DealItems = () => {
 
   return (
     <SafeAreaView style={styles.flatListContainer}>
-      {items !== null ? (
+      {filteredItems!== null ? (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={items.products}
+          // data={items.products}
+          data={filteredItems.products}
           renderItem={renderItem}
         />
       ) : (
         <ActivityIndicator />
       )}
 
-      {/* <Text> {JSON.stringify(items)}</Text> */}
+      {/* <Text> {JSON.stringify(filteredItems.products)}</Text> */}
     </SafeAreaView>
   );
 };
