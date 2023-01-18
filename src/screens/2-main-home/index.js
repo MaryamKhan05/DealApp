@@ -24,7 +24,6 @@ import InviteCard from '../../components/invite-card';
 import SearchContext from '../../context/searchContext';
 
 const MainHomeScreen = ({navigation}) => {
-  // const [search, setSearch] = useState('');
   const {handleSearch, search} = useContext(SearchContext);
   return (
     <>

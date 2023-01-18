@@ -1,10 +1,9 @@
 //import liraries
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TouchableOpacity,
   Text,
-  Image,
   TextInput,
   SafeAreaView,
 } from 'react-native';
@@ -14,7 +13,6 @@ import Colors from '../../services/constants/colors';
 import RouteNames from '../../services/constants/route-names';
 import {ScrollView} from 'react-native';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
-import AppImages from '../../assets/images';
 const EditPasswordScreen = ({navigation}) => {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -117,5 +115,4 @@ const EditPasswordScreen = ({navigation}) => {
   );
 };
 
-//make this component available to the app
 export default EditPasswordScreen;

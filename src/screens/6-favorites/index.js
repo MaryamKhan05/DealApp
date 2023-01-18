@@ -64,5 +64,4 @@ const FavoritesScreen = () => {
   );
 };
 
-//make this component available to the app
 export default FavoritesScreen;

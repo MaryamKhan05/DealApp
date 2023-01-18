@@ -22,7 +22,6 @@ import SearchContext from '../../context/searchContext';
 const DealItems = () => {
 
   const items = useContext(SearchContext);
-  const [search, setSearch] = useState('');
   const filteredItems = useContext(SearchContext);
   const filteredDeals = useContext(SearchContext);
   // console.log('filtered deals are::::::::::::::::::::::', filteredDeals);
@@ -33,9 +32,6 @@ const DealItems = () => {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0';
   const navigation = useNavigation();
   const [token, setToken] = useState(userTokenValue);
-  const [deals, setDeals] = useState([]);
-  const [isloading, setIsLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,

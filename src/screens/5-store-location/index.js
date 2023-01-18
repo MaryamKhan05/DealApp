@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, Text, Image} from 'react-native';
 import AppImages from '../../assets/images';
 import styles from './styles';
 import {Icon} from 'react-native-elements';
 import {
   responsiveFontSize,
-  responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import Colors from '../../services/constants/colors';
-const StoreLocationScreen = ({navigation}) => {
+const StoreLocationScreen = () => {
   return (
     <View style={styles.container}>
       <Image style={styles.container} source={AppImages.mapImage} />

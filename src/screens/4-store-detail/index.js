@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   Button,
   ImageBackground,
-  FlatList,
 } from 'react-native';
 import styles from './styles';
 import {Icon} from 'react-native-elements';
@@ -17,7 +16,6 @@ import RouteNames from '../../services/constants/route-names';
 import {ScrollView} from 'react-native';
 import {
   responsiveFontSize,
-  responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -25,13 +23,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Modal from 'react-native-modal';
 import AppImages from '../../assets/images';
 import HotDealItems from '../../components/hot-deal-items';
-import SearchContext from '../../context/searchContext';
 
 const StoreDetailScreen = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [ModalVisible2, setModalVisible2] = useState(false);
-  const value = useContext(SearchContext); 
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -43,7 +38,6 @@ const StoreDetailScreen = ({navigation}) => {
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}>
-          {/* <Text>{value}</Text> */}
         <View style={styles.container}>
           <View style={styles.homeHeaderContainer}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -99,9 +93,7 @@ const StoreDetailScreen = ({navigation}) => {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   marginTop: '-46%',
-                  // backgroundColor: Colors.grey,
-                  // backgroundColor:Colors.greyishWhite,
-                  backgroundColor:'#C4C4C4',
+                  backgroundColor: '#C4C4C4',
                   paddingVertical: 10,
                 }}>
                 <Text
@@ -123,7 +115,6 @@ const StoreDetailScreen = ({navigation}) => {
               <View
                 style={{
                   flexDirection: 'row',
-                  // backgroundColor: 'red',
                   margin: 10,
                   borderRadius: 10,
                   padding: 5,
@@ -190,9 +181,7 @@ const StoreDetailScreen = ({navigation}) => {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   marginTop: '-46%',
-                  // backgroundColor: Colors.grey,
-                  // backgroundColor:Colors.greyishWhite,
-                  backgroundColor:'#C4C4C4',
+                  backgroundColor: '#C4C4C4',
                   paddingVertical: 10,
                 }}>
                 <Text
@@ -214,7 +203,6 @@ const StoreDetailScreen = ({navigation}) => {
               <View
                 style={{
                   flexDirection: 'row',
-                  // backgroundColor: 'red',
                   margin: 10,
                   borderRadius: 10,
                   padding: 5,
@@ -395,5 +383,4 @@ const StoreDetailScreen = ({navigation}) => {
   );
 };
 
-//make this component available to the app
 export default StoreDetailScreen;

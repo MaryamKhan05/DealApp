@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 import RouteNames from '../../services/constants/route-names';
 import SearchContext from '../../context/searchContext';
 
-const HotDealItems = ({data}) => {
+const HotDealItems = () => {
   const navigation = useNavigation();
   const deals = useContext(SearchContext);
 

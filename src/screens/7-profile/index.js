@@ -8,19 +8,17 @@ import RouteNames from '../../services/constants/route-names';
 import {ScrollView} from 'react-native';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AppImages from '../../assets/images';
-import {getToken, removeToken} from '../../storage/storage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {removeToken} from '../../storage/storage';
 
 const ProfileViewScreen = ({navigation}) => {
   const handleLogout = async () => {
     try {
-      removeToken()
+      removeToken();
       navigation.navigate(RouteNames.LoginScreen);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>

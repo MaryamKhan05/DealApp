@@ -1,10 +1,9 @@
 //import liraries
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   TouchableOpacity,
   Text,
-  Image,
   TextInput,
   SafeAreaView,
 } from 'react-native';
@@ -18,7 +17,6 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import AppImages from '../../assets/images';
 const EditProfileScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -112,5 +110,4 @@ const EditProfileScreen = ({navigation}) => {
   );
 };
 
-//make this component available to the app
 export default EditProfileScreen;
