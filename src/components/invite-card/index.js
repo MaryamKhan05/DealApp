@@ -1,18 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  FlatList,
   Image,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
 import styles from './styles';
 import AppImages from '../../assets/images';
-import Colors from '../../services/constants/colors';
-import {responsiveFontSize} from 'react-native-responsive-dimensions';
-const InviteCard = ({data}) => {
+const InviteCard = () => {
   return (
     <ImageBackground
       source={AppImages.inviteCardBackground}

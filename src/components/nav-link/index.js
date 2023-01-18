@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useContext} from 'react';
+import React from 'react';
 import {Text, StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native';
 
 import Colors from '../../services/constants/colors';
@@ -20,10 +20,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     marginTop: 10,
     fontSize: 20,
-    marginBottom:20
-  },
-  btn: {
-    // marginTop: 20,
+    marginBottom: 20,
   },
 });
 

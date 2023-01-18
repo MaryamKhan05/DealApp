@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
@@ -7,7 +7,7 @@ import Colors from '../../services/constants/colors';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import RouteNames from '../../services/constants/route-names';
 const NearbyStoreItems = ({data, navigation}) => {
-  const renderItem = ({item, index}) => {
+  const renderItem = () => {
     return (
       <TouchableOpacity
         style={styles.container}
