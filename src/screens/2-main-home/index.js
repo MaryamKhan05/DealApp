@@ -23,7 +23,7 @@ import PromotionItems from '../../components/promotion-items';
 import InviteCard from '../../components/invite-card';
 import SearchContext from '../../context/searchContext';
 
-const MainHomeScreen = ({navigation}) => {
+const MainHomeScreen = () => {
   const {handleSearch, search} = useContext(SearchContext);
   return (
     <>

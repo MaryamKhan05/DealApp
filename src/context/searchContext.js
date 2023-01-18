@@ -10,6 +10,7 @@ export const SearchProvider = ({children}) => {
   const [search, setSearch] = useState('');
   const [filteredDeals, setFilteredDeals] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const headers = {
     'Content-Type': 'application/json',
@@ -21,13 +22,18 @@ export const SearchProvider = ({children}) => {
   }
 
   useEffect(() => {
-    fetch('https://project-production-7b65.up.railway.app/Admin/getAllProducts', {
-      method: 'GET',
-      headers,
-    })
+    setLoading(true);
+    fetch(
+      'https://project-production-7b65.up.railway.app/Admin/getAllProducts',
+      {
+        method: 'GET',
+        headers,
+      },
+    )
       .then(response => response.json())
       .then(json => setDeals(json))
-      .catch(errr => alert(errr.message));
+      .catch(errr => alert(errr.message))
+      .finally(() => setLoading(false));
   }, []);
 
   {

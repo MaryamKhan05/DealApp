@@ -20,11 +20,10 @@ import {useSelector} from 'react-redux';
 import SearchContext from '../../context/searchContext';
 
 const DealItems = () => {
-
   const items = useContext(SearchContext);
-  const filteredItems = useContext(SearchContext);
   const filteredDeals = useContext(SearchContext);
-  // console.log('filtered deals are::::::::::::::::::::::', filteredDeals);
+  const filteredItems = useContext(SearchContext);
+  console.log('filtered deals are::::::::::::::::::::::', filteredDeals);
   // console.log('filtered items are::::::::::::::::::::::::',filteredItems);
   // console.log(items);
   const userTokenValue = useSelector(state => state.userToken);
@@ -110,19 +109,19 @@ const DealItems = () => {
 
   return (
     <SafeAreaView style={styles.flatListContainer}>
-      {filteredItems!== null ? (
+      {filteredDeals !== null ? (
         <FlatList
+          data={filteredDeals.products}
+          renderItem={renderItem}
+          keyExtractor={item => item._id}
+          showsVerticalScrollIndicator={false}
           horizontal
           showsHorizontalScrollIndicator={false}
-          // data={items.products}
-          data={filteredItems.products}
-          renderItem={renderItem}
         />
       ) : (
         <ActivityIndicator />
       )}
-
-      {/* <Text> {JSON.stringify(filteredItems.products)}</Text> */}
+      {/* <Text> {JSON.stringify(filteredDeals)}</Text> */}
     </SafeAreaView>
   );
 };

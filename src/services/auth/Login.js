@@ -22,13 +22,13 @@ const token= useSelector((state)=>state.userToken)
       console.log(e.message);
     }
   };
-  useEffect(() => {
+  // useEffect(() => {
     
-      if (token) {
-        navigation.navigate(RouteNames.mainHomeScreen);
-      }
-    checkToken();
-  }, []);
+  //     if (token) {
+  //       navigation.navigate(RouteNames.mainHomeScreen);
+  //     }
+  //   checkToken();
+  // }, []);
   const handleLogin = async () => {
     try {
       if (!email || !password) {
@@ -50,8 +50,6 @@ const token= useSelector((state)=>state.userToken)
       );
       const json = await response.json();
       if (json.status === '200') {
-        // alert(json.status);
-        // storeData(json);
         storeToken(json);
 
         navigation.navigate(RouteNames.mainHomeScreen);
