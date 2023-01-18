@@ -91,11 +91,11 @@ const PromotionItems = () => {
   };
   return (
     <View style={styles.flatListContainer}>
-      {filteredDeals!==null ? (
+      {!isloading ? (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={filteredDeals.stores}
+          data={deals.stores}
           renderItem={renderItem}
           keyExtractor={item => item.storeId}
           handleDeleteFav={handleDeleteFav}
@@ -103,7 +103,7 @@ const PromotionItems = () => {
       ) : (
         <ActivityIndicator />
       )}
-      {/* <Text> {JSON.stringify(filteredDeals.stores)}</Text> */}
+      {/* <Text> {JSON.stringify(deals.stores)}</Text> */}
     </View>
   );
 };

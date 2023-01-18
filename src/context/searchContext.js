@@ -21,7 +21,7 @@ export const SearchProvider = ({children}) => {
   }
 
   useEffect(() => {
-    fetch('https://project-production-7b65.up.railway.app/Admin/getAllStores', {
+    fetch('https://project-production-7b65.up.railway.app/Admin/getAllProducts', {
       method: 'GET',
       headers,
     })

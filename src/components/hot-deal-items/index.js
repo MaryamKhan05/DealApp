@@ -105,8 +105,8 @@ const HotDealItems = ({data}) => {
             <Text style={styles.seeAllText}>{item.endDate}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.discountedPriceText}>{item.branchName}</Text>
-            <Text style={styles.oldPriceText}>$ 50</Text>
+            <Text style={styles.discountedPriceText}>{item.offerPrice}</Text>
+            <Text style={styles.oldPriceText}>$ {item.orignalPrice}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -114,12 +114,12 @@ const HotDealItems = ({data}) => {
   };
   return (
     <SafeAreaView style={styles.flatListContainer}>
-      {/* <Text>data{deals} </Text> */}
+      {/* <Text>data{JSON.stringify(deals.products)} </Text> */}
       {deals !== null ? (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={deals.stores}
+          data={deals.products}
           renderItem={renderItem}
         />
       ) : (
