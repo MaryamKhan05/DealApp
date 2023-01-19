@@ -79,7 +79,7 @@ const HomeBottomTabNavigation = () => {
         options={{
           title: 'Profile',
           tabBarIcon: ({focused, color, size}) => (
-            <FontAwesome5 size={size} color={color} name="user" />
+            <FontAwesome5 size={size} color={color} name="user-circle" />
           ),
         }}
       />

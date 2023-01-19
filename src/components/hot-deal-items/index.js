@@ -21,7 +21,6 @@ import SearchContext from '../../context/searchContext';
 const HotDealItems = () => {
   const navigation = useNavigation();
   const deals = useContext(SearchContext);
-
   const [token, setToken] = useState(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
   );
@@ -119,7 +118,7 @@ const HotDealItems = () => {
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={deals.products}
+          data={deals.deals.products}
           renderItem={renderItem}
         />
       ) : (

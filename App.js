@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
-import Login from './src/services/auth/Login';
 import MainStackNav from './src/services/navigation/main-stack-nav';
-import Auth from './src/services/auth/authNav';
-import MainHomeScreen from './src/screens/2-main-home';
-import FavoritesScreen from './src/screens/6-favorites';
 import {configureStore} from '@reduxjs/toolkit';
 import {userTokenSlice} from './src/storage/Reducer';
 import {Provider} from 'react-redux';
@@ -15,19 +11,18 @@ const store = configureStore({
 const App = () => {
   return (
     <Provider store={store}>
-      <MainStackNav />
+      <SearchProvider>
+        <MainStackNav />
+      </SearchProvider>
     </Provider>
   );
-  // return <Login/>
-  //  return <Auth/>;
-  // return <MainHomeScreen/>
-  // return <FavoritesScreen/>
 };
-const MyApp = App;
-export default () => {
-  return (
-    <SearchProvider>
-      <MyApp />
-    </SearchProvider>
-  );
-};
+export default App;
+// const MyApp = App;
+// export default () => {
+//   return (
+//     <SearchProvider>
+//       <MyApp />
+//     </SearchProvider>
+//   );
+// };

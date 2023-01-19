@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -24,7 +24,8 @@ import InviteCard from '../../components/invite-card';
 import SearchContext from '../../context/searchContext';
 
 const MainHomeScreen = () => {
-  const {handleSearch, search} = useContext(SearchContext);
+  const {search, handleSearch} = useContext(SearchContext);
+  // const [search, setSearch] = useState('');
   return (
     <>
       <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>
@@ -79,6 +80,8 @@ const MainHomeScreen = () => {
                     placeholder="Search any shop or product..."
                     style={styles.searchText}
                     placeholderTextColor={Colors.white}
+                    autoCapitalize="none"
+                    autoCorrect={false}
                   />
                 </View>
                 <TouchableOpacity style={styles.filterContainer}>
@@ -94,17 +97,19 @@ const MainHomeScreen = () => {
             {/* {-------------------------------} */}
 
             <View style={styles.listHeaderContainer}>
+              {/* <Text>{search}</Text> */}
               <Text style={styles.headerText}>
                 Great Deals on items near you
               </Text>
+
               <Text style={styles.seeAllText}>See All</Text>
             </View>
-            <DealItems handleSearch={handleSearch} data={[1, 2, 3, 4]} />
+            <DealItems data={[1, 2, 3, 4]} />
             <View style={styles.listHeaderContainer}>
               <Text style={styles.headerText}>Promotions nearby you</Text>
               <Text style={styles.seeAllText}>See All</Text>
             </View>
-            <PromotionItems handleSearch={handleSearch} data={[1, 2, 3, 4]} />
+            <PromotionItems data={[1, 2, 3, 4]} />
             <InviteCard />
           </View>
         </ScrollView>

@@ -31,7 +31,11 @@ export const SearchProvider = ({children}) => {
       },
     )
       .then(response => response.json())
-      .then(json => setDeals(json))
+      .then(json => {
+        setDeals(json);
+        setFilteredDeals(json);
+      })
+
       .catch(errr => alert(errr.message))
       .finally(() => setLoading(false));
   }, []);
@@ -53,7 +57,10 @@ export const SearchProvider = ({children}) => {
       },
     )
       .then(response => response.json())
-      .then(json => setItems(json))
+      .then(json => {
+        setItems(json);
+        setFilteredItems(json);
+      })
       .then(console.log(setItems))
       .catch(errr => alert(errr.message));
   }, []);
@@ -63,34 +70,56 @@ export const SearchProvider = ({children}) => {
   const handleSearch = searchText => {
     setSearch(searchText);
   };
+  // useEffect(() => {
+  //   let filteredDeals = [];
+  //   let filteredItems = [];
+  //   if (Array.isArray(deals)) {
+  //     filteredDeals = deals.filter(deal =>
+  //       deal.name.toLowerCase().includes(search.toLowerCase()),
+  //     );
+  //   }
+  //   setFilteredDeals(filteredDeals);
+  //   if (Array.isArray(items)) {
+  //     filteredItems = items.filter(item =>
+  //       item.name.toLowerCase().includes(search.toLowerCase()),
+  //     );
+  //   }
+  //   setFilteredItems(filteredItems);
+  // }, [search, deals, items]);
   useEffect(() => {
     let filteredDeals = [];
     let filteredItems = [];
-    if (Array.isArray(deals)) {
+    if (search.trim() === '') {
+      setFilteredDeals(deals);
+      setFilteredItems(items);
+    } else if (Array.isArray(deals)) {
       filteredDeals = deals.filter(deal =>
         deal.name.toLowerCase().includes(search.toLowerCase()),
       );
+      setFilteredDeals(filteredDeals);
     }
-    setFilteredDeals(filteredDeals);
     if (Array.isArray(items)) {
       filteredItems = items.filter(item =>
         item.name.toLowerCase().includes(search.toLowerCase()),
       );
+      setFilteredItems(filteredItems);
+      if (filteredDeals.length === 0 && filteredItems.length === 0) {
+        alert('No results found for your search!');
+      }
     }
-    setFilteredItems(filteredItems);
   }, [search, deals, items]);
 
   return (
     <SearchContext.Provider
-      value={Object.assign(
-        {},
-        handleSearch,
+      value={{
         deals,
         items,
-        filteredItems,
         filteredDeals,
+        filteredItems,
         search,
-      )}>
+        setSearch,
+        handleSearch,
+      }}>
       {children}
     </SearchContext.Provider>
   );

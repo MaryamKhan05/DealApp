@@ -23,7 +23,7 @@ const DealItems = () => {
   const items = useContext(SearchContext);
   const filteredDeals = useContext(SearchContext);
   const filteredItems = useContext(SearchContext);
-  console.log('filtered deals are::::::::::::::::::::::', filteredDeals);
+  // console.log('filtered deals are::::::::::::::::::::::', filteredDeals);
   // console.log('filtered items are::::::::::::::::::::::::',filteredItems);
   // console.log(items);
   const userTokenValue = useSelector(state => state.userToken);
@@ -111,7 +111,7 @@ const DealItems = () => {
     <SafeAreaView style={styles.flatListContainer}>
       {filteredDeals !== null ? (
         <FlatList
-          data={filteredDeals.products}
+          data={filteredDeals.deals.products}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}

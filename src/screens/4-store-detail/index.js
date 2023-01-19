@@ -63,6 +63,8 @@ const StoreDetailScreen = ({navigation}) => {
             onPress={toggleModal2}
           />
 
+          {/***********************Modal 1 ***********************/}
+
           <Modal isVisible={isModalVisible}>
             <View
               style={{
@@ -74,8 +76,8 @@ const StoreDetailScreen = ({navigation}) => {
               <ImageBackground
                 source={require('../../assets/images/modal.png')}
                 style={{
-                  width: '99%',
-                  height: '65%',
+                  width: '100%',
+                  height: '63%',
                   alignSelf: 'center',
                   borderRadius: 8,
                 }}>
@@ -83,7 +85,7 @@ const StoreDetailScreen = ({navigation}) => {
                   <Entypo
                     name="circle-with-cross"
                     color="white"
-                    size={30}
+                    size={25}
                     style={{alignSelf: 'flex-end', margin: 10}}
                   />
                 </TouchableOpacity>
@@ -151,6 +153,7 @@ const StoreDetailScreen = ({navigation}) => {
             </View>
           </Modal>
 
+          {/***********************Modal 2 ***********************/}
           <Modal isVisible={ModalVisible2}>
             <View
               style={{
@@ -162,10 +165,9 @@ const StoreDetailScreen = ({navigation}) => {
               <ImageBackground
                 source={require('../../assets/images/modal.png')}
                 style={{
-                  width: '99%',
-                  height: '65%',
+                  width: '100%',
+                  height: '63%',
                   alignSelf: 'center',
-                  borderRadius: 8,
                 }}>
                 <TouchableOpacity onPress={toggleModal2}>
                   <Entypo
@@ -183,6 +185,7 @@ const StoreDetailScreen = ({navigation}) => {
                   marginTop: '-46%',
                   backgroundColor: '#C4C4C4',
                   paddingVertical: 10,
+                  height: 70,
                 }}>
                 <Text
                   style={{
@@ -193,12 +196,31 @@ const StoreDetailScreen = ({navigation}) => {
                   }}>
                   Milk Pack
                 </Text>
-                <AntDesign
-                  name="heart"
-                  size={30}
-                  color={Colors.white}
-                  style={{marginRight: 10}}
+                <TouchableOpacity>
+                  <AntDesign
+                    name="heart"
+                    size={25}
+                    color={Colors.white}
+                    style={{marginRight: 10}}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{padding: 10}}>
+                <Image
+                  source={require('../../assets/images/modal2.png')}
+                  style={{alignSelf: 'center', marginTop: '-15%'}}
                 />
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    fontWeight: '700',
+                    fontSize: 16,
+                    margin: 3,
+                    lineHeight: 22,
+                    fontStyle: 'normal',
+                  }}>
+                  D Mart Store
+                </Text>
               </View>
               <View
                 style={{
@@ -211,29 +233,45 @@ const StoreDetailScreen = ({navigation}) => {
                   borderWidth: 1,
                   borderColor: '#DFE5F3',
                 }}>
-                <View
-                  style={{
-                    backgroundColor: '#D7EEFF',
-                    height: 48,
-                    width: 44,
-                    alignSelf: 'center',
-                    marginHorizontal: 5,
-                  }}></View>
-                <View style={{flexDirection: 'column'}}>
-                  <Text>Store Name</Text>
-                  <Text>Click to View available Branches</Text>
-                  <Text style={{color: Colors.orange}}>$ 20</Text>
+                {/************** Card ******************/}
+
+                <View style={{flexDirection: 'column', marginLeft: 5}}>
+                  <Text>Branch Name</Text>
+                  <Text style={{marginTop: 2}}>Address</Text>
+                  <View style={{flexDirection: 'row', marginTop: 3}}>
+                    <Text style={{color: Colors.orange}}>$ 20</Text>
+                    <Text
+                      style={{
+                        color: Colors.grey,
+                        fontWeight: '600',
+                        fontSize: responsiveFontSize(1.75),
+                        textDecorationLine: 'line-through',
+                        marginLeft: responsiveWidth(1),
+                      }}>
+                      $ 50
+                    </Text>
+                  </View>
                 </View>
                 <TouchableOpacity
                   style={{
                     backgroundColor: Colors.blue,
                     borderRadius: 10,
-                    height: 20,
-                    width: 45,
+                    height: '35%',
+                    width: '15%',
                     alignItems: 'center',
-                    marginRight: 50,
+                    justifyContent: 'center',
+                    marginLeft: '50%',
+                    marginTop: 10,
                   }}>
-                  <Text style={{color: Colors.white}}>View</Text>
+                  <Text
+                    style={{
+                      color: Colors.white,
+                      fontSize: 10,
+                      lineHeight: 14,
+                      fontWeight: '600',
+                    }}>
+                    Visit
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
