@@ -1,5 +1,5 @@
 //import liraries
-import React from 'react';
+import React,{ useEffect } from 'react';
 import {View, TouchableOpacity, Text, Image, SafeAreaView} from 'react-native';
 import styles from './styles';
 import {Icon} from 'react-native-elements';
@@ -9,11 +9,30 @@ import {ScrollView} from 'react-native';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AppImages from '../../assets/images';
 import {removeToken} from '../../storage/storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserId, updateUserToken } from '../../storage/Reducer';
+import { ToastAndroid } from 'react-native';
+
 
 const ProfileViewScreen = ({navigation}) => {
+  const userToken=useSelector((state)=>state.reducer.userToken)
+  const dispatch= useDispatch()
+  
+
+  useEffect(()=>{
+if(!userToken){
+  navigation.navigate(RouteNames.LoginScreen)
+  ToastAndroid.show('You Need To Login Or Create Account',ToastAndroid.SHORT)
+}
+  },[])
+
+
   const handleLogout = async () => {
     try {
-      removeToken();
+     // removeToken();
+     dispatch(updateUserToken(''))
+       dispatch(updateUserId(''))
+       ToastAndroid.show('Logged Out', ToastAndroid.SHORT)
       navigation.navigate(RouteNames.LoginScreen);
     } catch (error) {
       console.log(error);

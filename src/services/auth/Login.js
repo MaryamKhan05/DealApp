@@ -7,9 +7,11 @@ import Form from '../../components/auth-form';
 import NavLink from '../../components/nav-link';
 import RouteNames from '../constants/route-names';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserId, updateUserToken } from '../../storage/Reducer';
 const Login = ({navigation}) => {
 const token= useSelector((state)=>state.userToken)
+const dispatch= useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,19 +24,19 @@ const token= useSelector((state)=>state.userToken)
       console.log(e.message);
     }
   };
-  // useEffect(() => {
+  
+  useEffect(() => {
     
-  //     if (token) {
-  //       navigation.navigate(RouteNames.mainHomeScreen);
-  //     }
-  //   checkToken();
-  // }, []);
-  const handleLogin = async () => {
-    try {
-      if (!email || !password) {
-        alert('Please fill out all fields');
-        return;
+      if (token) {
+        navigation.navigate(RouteNames.mainHomeScreen);
       }
+  }, []);
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert('Please fill out all fields');
+      return;
+    }
+    try {
       const response = await fetch(
         `https://project-production-7b65.up.railway.app/User/userSignin`,
         {
@@ -49,15 +51,21 @@ const token= useSelector((state)=>state.userToken)
         },
       );
       const json = await response.json();
+      
       if (json.status === '200') {
-        storeToken(json);
 
-        navigation.navigate(RouteNames.mainHomeScreen);
+        console.log(json)
+      //  // storeToken(json);
+       await  AsyncStorage.setItem('@User_Token',json.token.toString() )
+        dispatch(updateUserToken(json.token.toString()))
+        await  AsyncStorage.setItem('@User_Id',json._id ) 
+        dispatch(updateUserId(json._id))
+         navigation.navigate(RouteNames.mainHomeScreen);
       } else {
         alert('something went wrong');
       }
     } catch (error) {
-      alert(error.message);
+      alert(error);
     }
   };
 

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useSelector } from 'react-redux';
 
 const SearchContext = React.createContext();
 export const SearchProvider = ({children}) => {
@@ -11,10 +12,10 @@ export const SearchProvider = ({children}) => {
   const [filteredDeals, setFilteredDeals] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [isLoading, setLoading] = useState(false);
-
+const userToken= useSelector((state)=> (state.reducer.userToken))
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${userToken}`,
   };
 
   {

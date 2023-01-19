@@ -16,59 +16,66 @@ import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useSelector} from 'react-redux';
 const ProductItems = () => {
-  const userToken = useSelector(state => state.userToken);
-  const [token, setToken] = useState(userToken);
+  const userToken = useSelector(state => state.reducer.userToken);
+  const userId = useSelector(state => state.reducer.userId);
+  //const [token, setToken] = useState(userToken);
   const [deals, setDeals] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${userToken}`,
   };
-
+const getFavItems=()=>{
+  fetch(
+    'https://project-production-7b65.up.railway.app/User/getAllFavProducts',
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        userId,
+      }),
+    },
+  )
+    .then(response => response.json())
+    .then(json => setDeals(json))
+    .finally(() => setIsLoading(false))
+    .catch(errr => alert(errr.message));
+}
   useEffect(() => {
-    fetch(
-      'https://project-production-7b65.up.railway.app/User/getAllFavProducts',
-      {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          userId: token,
-        }),
-      },
-    )
-      .then(response => response.json())
-      .then(json => setDeals(json))
-      .finally(() => setIsLoading(false))
-      .catch(errr => alert(errr.message));
-  }, []);
+    getFavItems()
+  }, [deals]);
 
-  const storeData = async value => {
-    try {
-      await AsyncStorage.setItem('@User_Token', value);
-      console.log('added successfully');
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+  // const storeData = async value => {
+  //   try {
+  //     await AsyncStorage.setItem('@User_Token', value);
+  //     console.log('added successfully');
+  //   } catch (e) {
+  //     console.log(e.message);
+  //   }
+  // };
 
-  const handleDeleteFav = async _id => {
+  const handleDeleteFav = async productId => {
     try {
       const response = await fetch(
-        `https://project-production-7b65.up.railway.app/User/deleteFavStore`,
+        `https://project-production-7b65.up.railway.app/User/deleteFavProd`,
         {
           method: 'POST',
           body: JSON.stringify({
-            id: _id,
+            
+            productId,
+            userId,
+           
           }),
           headers,
         },
       );
 
       const json = await response.json();
-      alert(json.status);
+      alert(json.message);
+      getFavItems()
       console.log(json);
-      storeData(json);
     } catch (error) {
+      console.log(error)
       alert(error.message);
     }
   };
@@ -83,7 +90,7 @@ const ProductItems = () => {
             <Text style={styles.headerText}>{item._id}</Text>
             <TouchableOpacity
               style={styles.heartIcon}
-              onPress={() => handleDeleteFav(item._id)}>
+              onPress={() => handleDeleteFav(item.productId)}>
               <Icon
                 type="entypo"
                 name="heart"

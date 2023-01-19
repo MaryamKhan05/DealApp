@@ -22,9 +22,11 @@ import DealItems from '../../components/deal-items';
 import PromotionItems from '../../components/promotion-items';
 import InviteCard from '../../components/invite-card';
 import SearchContext from '../../context/searchContext';
+import { useSelector } from 'react-redux';
 
 const MainHomeScreen = () => {
   const {search, handleSearch} = useContext(SearchContext);
+
   // const [search, setSearch] = useState('');
   return (
     <>

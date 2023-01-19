@@ -10,8 +10,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Colors from '../constants/colors';
 import NavLink from '../../components/nav-link';
 import RouteNames from '../constants/route-names';
+import { useDispatch } from 'react-redux';
+import { updateUserId, updateUserToken } from '../../storage/Reducer';
 
 const SignUp = ({navigation}) => {
+  const dispatch=useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFName] = useState('');
@@ -51,8 +54,12 @@ const SignUp = ({navigation}) => {
       if (json.status === '200') {
         // alert(json.status);
         console.log(json);
-        storeData(json);
-        navigation.navigate(RouteNames.mainHomeScreen);
+        
+        // await  AsyncStorage.setItem('@User_Token',json.token.toString() )
+        // dispatch(updateUserToken(json.token.toString()))
+        // await  AsyncStorage.setItem('@User_Id',json._id ) 
+        // dispatch(updateUserId(json._id))
+        navigation.navigate(RouteNames.LoginScreen);
       } else {
         alert(json.message);
       }
