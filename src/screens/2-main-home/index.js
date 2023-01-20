@@ -24,8 +24,7 @@ import InviteCard from '../../components/invite-card';
 import SearchContext from '../../context/searchContext';
 
 const MainHomeScreen = () => {
-  const {search, handleSearch} = useContext(SearchContext);
-  // const [search, setSearch] = useState('');
+  const {search,setSearch, results, handleSearch} = useContext(SearchContext);
   return (
     <>
       <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>
@@ -75,8 +74,10 @@ const MainHomeScreen = () => {
                     />
                   </TouchableOpacity>
                   <TextInput
+                    // onChangeText={handleSearch}
                     onChangeText={handleSearch}
                     value={search}
+                    onEndEditing={()=>console.log('submitted')}
                     placeholder="Search any shop or product..."
                     style={styles.searchText}
                     placeholderTextColor={Colors.white}
@@ -97,7 +98,7 @@ const MainHomeScreen = () => {
             {/* {-------------------------------} */}
 
             <View style={styles.listHeaderContainer}>
-              {/* <Text>{search}</Text> */}
+              {/* <Text>we have found {results.lenght} results</Text> */}
               <Text style={styles.headerText}>
                 Great Deals on items near you
               </Text>
