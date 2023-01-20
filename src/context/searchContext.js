@@ -8,6 +8,7 @@ export const SearchProvider = ({children}) => {
   const [token, setToken] = useState(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
   );
+  const [results, setResults] = useState([]);
   const [search, setSearch] = useState('');
   const [filteredDeals, setFilteredDeals] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -70,45 +71,46 @@ const userToken= useSelector((state)=> (state.reducer.userToken))
   }
   const handleSearch = searchText => {
     setSearch(searchText);
+    // useEffect(() => {
+      let filteredDeals = [];
+      let filteredItems = [];
+      if (Array.isArray(deals)) {
+        filteredDeals = deals.filter(deal =>
+          deal.name.toLowerCase().includes(search.toLowerCase()),
+        );
+      }
+      setFilteredDeals(filteredDeals);
+      if (Array.isArray(items)) {
+        filteredItems = items.filter(item =>
+          item.name.toLowerCase().includes(search.toLowerCase()),
+        );
+      }
+      setFilteredItems(filteredItems);
+    // }, [search, deals, items]);
   };
+
   // useEffect(() => {
   //   let filteredDeals = [];
   //   let filteredItems = [];
-  //   if (Array.isArray(deals)) {
+  //   if (search.trim() === '') {
+  //     setFilteredDeals(deals);
+  //     setFilteredItems(items);
+  //   } else if (Array.isArray(deals)) {
   //     filteredDeals = deals.filter(deal =>
   //       deal.name.toLowerCase().includes(search.toLowerCase()),
   //     );
+  //     setFilteredDeals(filteredDeals);
   //   }
-  //   setFilteredDeals(filteredDeals);
   //   if (Array.isArray(items)) {
   //     filteredItems = items.filter(item =>
   //       item.name.toLowerCase().includes(search.toLowerCase()),
   //     );
+  //     setFilteredItems(filteredItems);
+  //     if (filteredDeals.length === 0 && filteredItems.length === 0) {
+  //       alert('No results found for your search!');
+  //     }
   //   }
-  //   setFilteredItems(filteredItems);
   // }, [search, deals, items]);
-  useEffect(() => {
-    let filteredDeals = [];
-    let filteredItems = [];
-    if (search.trim() === '') {
-      setFilteredDeals(deals);
-      setFilteredItems(items);
-    } else if (Array.isArray(deals)) {
-      filteredDeals = deals.filter(deal =>
-        deal.name.toLowerCase().includes(search.toLowerCase()),
-      );
-      setFilteredDeals(filteredDeals);
-    }
-    if (Array.isArray(items)) {
-      filteredItems = items.filter(item =>
-        item.name.toLowerCase().includes(search.toLowerCase()),
-      );
-      setFilteredItems(filteredItems);
-      if (filteredDeals.length === 0 && filteredItems.length === 0) {
-        alert('No results found for your search!');
-      }
-    }
-  }, [search, deals, items]);
 
   return (
     <SearchContext.Provider
