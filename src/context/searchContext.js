@@ -4,6 +4,8 @@ import Api from '../../Api';
 
 const SearchContext = React.createContext();
 export const SearchProvider = ({children}) => {
+  const [productsDeals,setProductDeals]=useState([]);
+  const [storeDeals,setStoreDeals]=useState([]);
   // const [deals, setDeals] = useState();
   // const [items, setItems] = useState([]);
   // const [token, setToken] = useState(
@@ -122,6 +124,10 @@ export const SearchProvider = ({children}) => {
         // setSearch,
         // handleSearch,
         // filterproducts,
+        setProductDeals,
+        productsDeals,
+        setStoreDeals,
+        storeDeals
       }}>
       {children}
     </SearchContext.Provider>

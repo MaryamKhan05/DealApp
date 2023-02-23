@@ -6,18 +6,24 @@ import AppImages from '../../assets/images';
 import Colors from '../../services/constants/colors';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import RouteNames from '../../services/constants/route-names';
+import Api from '../../../Api';
 const NearbyStoreItems = ({data, navigation}) => {
   const renderItem = (item, index) => {
     console.log(item.item);
     const newitem = item.item;
+    
     return (
       <TouchableOpacity
         style={styles.container}
         onPress={() => navigation.navigate(RouteNames.storeDetailScreen)}>
-        <Image source={AppImages.storeItem1} style={styles.image} />
+        <Image
+          source={{uri: `${Api}${newitem?.productId?.image}`}}
+          style={styles.image}
+        />
         <View style={styles.detailsContainer}>
           <Text style={styles.headerText}>
-            {newitem.name} <Text style={styles.seeAllText}>(2.5km away)</Text>
+            {newitem?.productId?.name}{' '}
+            <Text style={styles.seeAllText}>(2.5km away)</Text>
           </Text>
           <View style={styles.priceContainer}>
             <Icon

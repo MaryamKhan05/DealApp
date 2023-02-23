@@ -28,7 +28,7 @@ const MainHomeScreen = () => {
   // const {search, handleSearch} = useContext(SearchContext);
 
   const [search, setSearch] = useState('');
-  // const {search, setSearch, results, handleSearch} = useContext(SearchContext);
+  const {setStoreDeals, setProductDeals} = useContext(SearchContext);
 const [products,setProducts]=useState([])
 const [stores,setStores]=useState([])
 const [filterProduct,setFilterProduct]=useState([])
@@ -48,7 +48,7 @@ const handleSearch=(val)=>{
     );
     setFilterStore(newstore)
     setFilterProduct(newproduct)
-  }
+  } 
   else{
     setFilterProduct(products)
   }
@@ -72,6 +72,7 @@ const getStoreData=async()=>{
     // console.log(result)
     setStores(result.deals)
     setFilterStore(result.deals);
+    setStoreDeals(result.deals);
     // console.log("my Store",stores)
   } catch (error) {
     console.log(error.message)
@@ -96,6 +97,7 @@ const getProductData=async()=>{
     // console.log(result)
     setProducts(result.deals);
     setFilterProduct(result.deals);
+    setProductDeals(result.deals);
     // console.log("my producs",products)
   } catch (error) {
     console.log(error.message)

@@ -9,7 +9,7 @@ import {ActivityIndicator} from 'react-native-paper';
 import SearchContext from '../../context/searchContext';
 
 const NearbyShopScreen = ({navigation}) => {
-  const filteredDeals = useContext(SearchContext);
+  const {productsDeals, storeDeals} = useContext(SearchContext);
   const [location, setLocation] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const requestFollowPermission = async () => {
@@ -85,10 +85,7 @@ const NearbyShopScreen = ({navigation}) => {
       )}
 
       <View style={styles.bottomSheet}>
-        <NearbyStoreItems
-          data={filteredDeals.deals.products}
-          navigation={navigation}
-        />
+        <NearbyStoreItems data={productsDeals} navigation={navigation} />
       </View>
     </View>
   );

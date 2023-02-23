@@ -115,12 +115,13 @@ const HotDealItems = () => {
     <SafeAreaView style={styles.flatListContainer}>
       {/* <Text>data{JSON.stringify(deals.products)} </Text> */}
       {deals !== null ? (
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={deals.deals.products}
-          renderItem={renderItem}
-        />
+        // <FlatList
+        //   horizontal
+        //   showsHorizontalScrollIndicator={false}
+        //   data={deals.deals.products}
+        //   renderItem={renderItem}
+        // />
+        <></>
       ) : (
         <ActivityIndicator />
       )}
