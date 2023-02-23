@@ -53,7 +53,11 @@ const [isLoading, setIsLoading] = useState(true);
               longitudeDelta: 0.0421,
             });
             setIsLoading(false);
-            console.log('here im WITH are you able to find out', location);
+            console.log(
+              'here im WITH are you able to find out',
+              location.latitude,
+              location.longitude,
+            );
             getStoreData();
             getProductData()
           },

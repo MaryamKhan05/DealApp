@@ -48,8 +48,8 @@ const NearbyShopScreen = ({navigation}) => {
       {/* <Image source={AppImages.mapImage} /> */}
       {!isLoading ? (
         <MapView
-          style={styles.container}
-          style={{flex: 1}}
+          style={[styles.container,{flex:1}]}
+          // style={{flex: 1}}
           mapType="terrain"
           initialRegion={location}
           showsUserLocation={true}
