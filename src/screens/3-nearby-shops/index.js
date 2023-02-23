@@ -78,7 +78,15 @@ const NearbyShopScreen = ({navigation}) => {
           showsBuildings={true}
           // apiKey={'AIzaSyADJCY8VXgveXoWUbQpJbW-Bpb_adiAjLo'} // API key for the map service
         >
-          <Marker coordinate={location} />
+          {productsDeals?.map(item => (
+            <Marker
+              coordinate={{
+                latitude: item.location.coordinates[1],
+                longitude: item.location.coordinates[0],
+                
+              }}
+            />
+          ))}
         </MapView>
       ) : (
         <ActivityIndicator style={{flex: 1}} />

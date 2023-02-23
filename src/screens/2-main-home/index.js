@@ -7,6 +7,7 @@ import {
   TextInput,
   SafeAreaView,
   StatusBar,
+  PermissionsAndroid
 } from 'react-native';
 import styles from './styles';
 
@@ -23,6 +24,7 @@ import PromotionItems from '../../components/promotion-items';
 import InviteCard from '../../components/invite-card';
 import SearchContext from '../../context/searchContext';
 import Api from '../../../Api';
+import Geolocation from '@react-native-community/geolocation';
 
 const MainHomeScreen = () => {
   // const {search, handleSearch} = useContext(SearchContext);
@@ -33,6 +35,40 @@ const [products,setProducts]=useState([])
 const [stores,setStores]=useState([])
 const [filterProduct,setFilterProduct]=useState([])
 const [filterstore,setFilterStore]=useState([])
+const [location, setLocation] = useState();
+const [isLoading, setIsLoading] = useState(true);
+
+  const requestFollowPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        Geolocation.getCurrentPosition(
+          position => {
+            setLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            });
+            setIsLoading(false);
+            console.log('here im WITH are you able to find out', location);
+            getStoreData();
+            getProductData()
+          },
+          error => console.log(error),
+          {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000},
+        );
+      } else {
+        console.log('Location permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+
 
 const handleSearch=(val)=>{
   // console.log(val)
@@ -81,8 +117,8 @@ const getStoreData=async()=>{
 const getProductData=async()=>{
   const url = `${Api}User/getNearbyDealsProducts`;
   const data = {
-    lat: '33.5700346784227',
-    lng: '73.0165566772461',
+    lat: location.latitude,
+    lng: location.longitude,
   };
   try {
     
@@ -104,8 +140,7 @@ const getProductData=async()=>{
   }
 }
 useEffect(()=>{
- getProductData();
- getStoreData();
+ requestFollowPermission();
 },[])
   return (
     <>
