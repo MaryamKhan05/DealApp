@@ -1,93 +1,92 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
+import Api from '../../Api';
 
 const SearchContext = React.createContext();
 export const SearchProvider = ({children}) => {
-  const [deals, setDeals] = useState([]);
-  const [items, setItems] = useState([]);
-  const [token, setToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
-  );
-  const [results, setResults] = useState([]);
-  const [search, setSearch] = useState('');
-  const [filteredDeals, setFilteredDeals] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-const userToken= useSelector((state)=> (state.reducer.userToken))
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${userToken}`,
-  };
+  // const [deals, setDeals] = useState();
+  // const [items, setItems] = useState([]);
+  // const [token, setToken] = useState(
+  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
+  // );
+  // const [results, setResults] = useState([]);
+  // const [search, setSearch] = useState('');
+  // const [filteredDeals, setFilteredDeals] = useState();
+  // const [filteredItems, setFilteredItems] = useState();
+  // const [isLoading, setLoading] = useState(false);
+  // const userToken = useSelector(state => state.reducer.userToken);
+  // const [filterproducts, setFilterProducts] = useState([]);
+  // const headers = {
+  //   'Content-Type': 'application/json',
+  // };
 
-  {
-    /* api call for store detail screen  */
-  }
+  // {
+  //   /* api call for store detail screen  */
+  // }
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(
-      'https://project-production-7b65.up.railway.app/Admin/getAllProducts',
-      {
-        method: 'GET',
-        headers,
-      },
-    )
-      .then(response => response.json())
-      .then(json => {
-        setDeals(json);
-        setFilteredDeals(json);
-      })
+  // // useEffect(() => {
+  // //   setLoading(true);
+  // //   fetch(`${Api}/User/getNearbyDealsProducts`, {
+  // //     method: 'PUT',
+  // //     headers,
+  // //     body: JSON.stringify({
+  // //       lat: '33.5700346784227',
+  // //       lng: '73.0165566772461',
+  // //     }),
+  // //   })
+  // //     .then(response => response.json())
+  // //     .then(json => {
+  // //       setDeals(json.products);
+  // //       // setFilteredDeals(json.products);
+  // //       setFilterProducts(json.products);
+  // //       console.log("my jason data=",json);
+  // //     })
 
-      .catch(errr => alert(errr.message))
-      .finally(() => setLoading(false));
-  }, []);
+  // //     .catch(errr => alert(errr.message))
+  // //     .finally(() => setLoading(false));
+  // // }, []);
 
-  {
-    /* api call for items near you */
-  }
-
-  useEffect(() => {
-    fetch(
-      'https://project-production-7b65.up.railway.app/Admin/getNearbyProducts',
-      {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          lattitude: 90.0715,
-          longnitude: 29.951,
-        }),
-      },
-    )
-      .then(response => response.json())
-      .then(json => {
-        setItems(json);
-        setFilteredItems(json);
-      })
-      .then(console.log(setItems))
-      .catch(errr => alert(errr.message));
-  }, []);
-  {
-    /* code for search bar */
-  }
-  const handleSearch = searchText => {
-    setSearch(searchText);
-    // useEffect(() => {
-      let filteredDeals = [];
-      let filteredItems = [];
-      if (Array.isArray(deals)) {
-        filteredDeals = deals.filter(deal =>
-          deal.name.toLowerCase().includes(search.toLowerCase()),
-        );
-      }
-      setFilteredDeals(filteredDeals);
-      if (Array.isArray(items)) {
-        filteredItems = items.filter(item =>
-          item.name.toLowerCase().includes(search.toLowerCase()),
-        );
-      }
-      setFilteredItems(filteredItems);
-    // }, [search, deals, items]);
-  };
+  // useEffect(() => {
+  //   fetch(`${Api}/User/getNearbyDealsProducts`, {
+  //     method: 'PUT',
+  //     headers,
+  //     body: JSON.stringify({
+  //       lat: '33.5700346784227',
+  //       lng: '73.0165566772461',
+  //     }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       setItems(json);
+  //       setFilterProducts(json.deals);
+  //       console.log("my products are=",filterproducts)
+  //     })
+  //     .catch(errr => alert(errr.message));
+  // }, []);
+  // {
+  //   /* code for search bar */
+  // }
+  // const handleSearch = searchText => {
+  //   setSearch(searchText);
+  //   console.log(searchText);
+  //   // useEffect(() => {
+  //   let fDeals = [];
+  //   let filteredItems = [];
+  //   if (searchText || searchText != '') {
+  //     console.log('deals here=', JSON.stringify(filteredDeals));
+  //     fDeals = deals.filter(item =>
+  //       item.name
+  //         .trim()
+  //         .toLowerCase()
+  //         .includes(searchText.trim().toLowerCase()),
+  //     );
+  //     console.log('my f deals =', JSON.stringify(fDeals));
+  //     setFilterProducts(fDeals);
+  //   } else {
+  //     setFilterProducts(deals);
+  //   }
+  //   // }, [search, deals, items]);
+  // };
 
   // useEffect(() => {
   //   let filteredDeals = [];
@@ -115,13 +114,14 @@ const userToken= useSelector((state)=> (state.reducer.userToken))
   return (
     <SearchContext.Provider
       value={{
-        deals,
-        items,
-        filteredDeals,
-        filteredItems,
-        search,
-        setSearch,
-        handleSearch,
+        // deals,
+        // items,
+        // filteredDeals,
+        // filteredItems,
+        // search,
+        // setSearch,
+        // handleSearch,
+        // filterproducts,
       }}>
       {children}
     </SearchContext.Provider>

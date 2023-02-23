@@ -1,0 +1,1 @@
+export default API= 'https://web-production-b0c8.up.railway.app/'

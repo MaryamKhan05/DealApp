@@ -25,24 +25,25 @@ const ProductItems = () => {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${userToken}`,
   };
-const getFavItems=()=>{
-  fetch(
-    'https://project-production-7b65.up.railway.app/User/getAllFavProducts',
-    {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        userId,
-      }),
-    },
-  )
-    .then(response => response.json())
-    .then(json => setDeals(json))
-    .finally(() => setIsLoading(false))
-    .catch(errr => alert(errr.message));
-}
+  const getFavItems = () => {
+    fetch(
+      'https://project-production-7b65.up.railway.app/User/getAllFavProducts',
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          userId,
+        }),
+      },
+    )
+      .then(response => response.json())
+      .then(json => setDeals(json))
+      .finally(() => setIsLoading(false))
+      .catch(errr => alert(errr.message));
+  };
   useEffect(() => {
-    getFavItems()
+    getFavItems();
+    console.log('here is items=', JSON.stringify(deals.favProds));
   }, [deals]);
 
   // const storeData = async value => {
@@ -54,29 +55,26 @@ const getFavItems=()=>{
   //   }
   // };
 
-  const handleDeleteFav = async productId => {
+  const handleDeleteFav = async id => {
     try {
       const response = await fetch(
         `https://project-production-7b65.up.railway.app/User/deleteFavProd`,
         {
           method: 'POST',
           body: JSON.stringify({
-            
-            productId,
-            userId,
-           
+            id,
           }),
           headers,
         },
       );
 
       const json = await response.json();
-      alert(json.message);
-      getFavItems()
+      // alert(json.message);
+      getFavItems();
       console.log(json);
     } catch (error) {
-      console.log(error)
-      alert(error.message);
+      console.log(error);
+      // alert(error.message);
     }
   };
 
@@ -90,7 +88,7 @@ const getFavItems=()=>{
             <Text style={styles.headerText}>{item._id}</Text>
             <TouchableOpacity
               style={styles.heartIcon}
-              onPress={() => handleDeleteFav(item.productId)}>
+              onPress={() => handleDeleteFav(item._id)}>
               <Icon
                 type="entypo"
                 name="heart"

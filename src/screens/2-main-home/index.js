@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -22,13 +22,89 @@ import DealItems from '../../components/deal-items';
 import PromotionItems from '../../components/promotion-items';
 import InviteCard from '../../components/invite-card';
 import SearchContext from '../../context/searchContext';
-import { useSelector } from 'react-redux';
+import Api from '../../../Api';
 
 const MainHomeScreen = () => {
   // const {search, handleSearch} = useContext(SearchContext);
 
-  // const [search, setSearch] = useState('');
-  const {search,setSearch, results, handleSearch} = useContext(SearchContext);
+  const [search, setSearch] = useState('');
+  // const {search, setSearch, results, handleSearch} = useContext(SearchContext);
+const [products,setProducts]=useState([])
+const [stores,setStores]=useState([])
+const [filterProduct,setFilterProduct]=useState([])
+const [filterstore,setFilterStore]=useState([])
+
+const handleSearch=(val)=>{
+  // console.log(val)
+  if(val.trim()!=''){
+    const newproduct = products.filter(
+      item => item.productId.name.trim().toLowerCase().includes(val.trim().toLowerCase())
+    );
+    const newstore = stores.filter(item =>
+      item.storeId.storeName
+        .trim()
+        .toLowerCase()
+        .includes(val.trim().toLowerCase()),
+    );
+    setFilterStore(newstore)
+    setFilterProduct(newproduct)
+  }
+  else{
+    setFilterProduct(products)
+  }
+}
+const getStoreData=async()=>{
+  const url = `${Api}User/getNearbyDealsStores`;
+  const data = {
+    lng: '73.0165566772461',
+    lat: '33.5700346784227',
+  };
+  try {
+    
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+    // console.log(result)
+    setStores(result.deals)
+    setFilterStore(result.deals);
+    // console.log("my Store",stores)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+const getProductData=async()=>{
+  const url = `${Api}User/getNearbyDealsProducts`;
+  const data = {
+    lat: '33.5700346784227',
+    lng: '73.0165566772461',
+  };
+  try {
+    
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+    // console.log(result)
+    setProducts(result.deals);
+    setFilterProduct(result.deals);
+    // console.log("my producs",products)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+useEffect(()=>{
+ getProductData();
+ getStoreData();
+},[])
   return (
     <>
       <SafeAreaView style={{flex: 1, backgroundColor: Colors.blue}}>
@@ -80,8 +156,8 @@ const MainHomeScreen = () => {
                   <TextInput
                     // onChangeText={handleSearch}
                     onChangeText={handleSearch}
-                    value={search}
-                    onEndEditing={()=>console.log('submitted')}
+                    // value={search}
+                    onEndEditing={() => console.log('submitted')}
                     placeholder="Search any shop or product..."
                     style={styles.searchText}
                     placeholderTextColor={Colors.white}
@@ -109,12 +185,12 @@ const MainHomeScreen = () => {
 
               <Text style={styles.seeAllText}>See All</Text>
             </View>
-            <DealItems data={[1, 2, 3, 4]} />
+            <DealItems Data={filterProduct}/>
             <View style={styles.listHeaderContainer}>
               <Text style={styles.headerText}>Promotions nearby you</Text>
               <Text style={styles.seeAllText}>See All</Text>
             </View>
-            <PromotionItems data={[1, 2, 3, 4]} />
+            <PromotionItems Data={filterstore} />
             <InviteCard />
           </View>
         </ScrollView>

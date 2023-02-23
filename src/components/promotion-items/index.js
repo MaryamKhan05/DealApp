@@ -8,8 +8,10 @@ import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import {ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchContext from '../../context/searchContext';
+import Api from '../../../Api';
 
-const PromotionItems = () => {
+const PromotionItems = ({Data}) => {
+  console.log("my Data is here", Data)
   const [deals, setDeals] = useState([]);
   const [isloading, setIsLoading] = useState(true);
   const filteredDeals = useContext(SearchContext);
@@ -64,7 +66,7 @@ const PromotionItems = () => {
       // alert(json.status);
       console.log(json);
     } catch (error) {
-      alert(error.message);
+      // alert(error.message);
     }
   };
 
@@ -73,7 +75,7 @@ const PromotionItems = () => {
       <TouchableOpacity style={styles.container}>
         <TouchableOpacity
           style={styles.heartIcon}
-          onPress={() => handleDeleteFav(item.storeId)}>
+          onPress={() => handleDeleteFav(item.storeId._id)}>
           <Icon
             type="entypo"
             size={responsiveFontSize(2)}
@@ -81,10 +83,14 @@ const PromotionItems = () => {
             name="heart"
           />
         </TouchableOpacity>
-        <Image source={AppImages.promotionItem1} style={styles.image} />
+        {console.log('my image='+ `${Api}${item.storeId.storeImage}`)}
+        <Image
+          source={`${Api}${item.storeId.storeImage}`}
+          style={styles.image}
+        />
         <View style={styles.detailsContainer}>
-          {/* <Text style={styles.headerText}>{item.branchName}</Text> */}
-          <Text style={styles.discountedPriceText}>{item.storeId}</Text>
+          <Text style={styles.headerText}>{item.storeId.storeName}</Text>
+          <Text style={styles.discountedPriceText}>{item.discountPrice}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -95,9 +101,9 @@ const PromotionItems = () => {
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          data={deals.stores}
+          data={Data}
           renderItem={renderItem}
-          keyExtractor={item => item.storeId}
+          keyExtractor={item => item._id}
           handleDeleteFav={handleDeleteFav}
         />
       ) : (
@@ -107,5 +113,6 @@ const PromotionItems = () => {
     </View>
   );
 };
+  // the reason of this call is
 
 export default PromotionItems;

@@ -72,11 +72,11 @@ const HotDealItems = () => {
         },
       );
       const json = await response.json();
-      alert(json.status);
+      // alert(json.status);
       console.log(json);
       storeData(json);
     } catch (error) {
-      alert(error.message);
+      // alert(error.message);
     }
   };
   const renderItem = ({item}) => {

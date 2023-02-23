@@ -7,7 +7,9 @@ import Colors from '../../services/constants/colors';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
 import RouteNames from '../../services/constants/route-names';
 const NearbyStoreItems = ({data, navigation}) => {
-  const renderItem = () => {
+  const renderItem = (item, index) => {
+    console.log(item.item);
+    const newitem = item.item;
     return (
       <TouchableOpacity
         style={styles.container}
@@ -15,7 +17,7 @@ const NearbyStoreItems = ({data, navigation}) => {
         <Image source={AppImages.storeItem1} style={styles.image} />
         <View style={styles.detailsContainer}>
           <Text style={styles.headerText}>
-            Milk Pak <Text style={styles.seeAllText}>(2.5km away)</Text>
+            {newitem.name} <Text style={styles.seeAllText}>(2.5km away)</Text>
           </Text>
           <View style={styles.priceContainer}>
             <Icon
@@ -24,6 +26,7 @@ const NearbyStoreItems = ({data, navigation}) => {
               color={Colors.grey}
               size={responsiveFontSize(2)}
             />
+
             <Text style={styles.seeAllText}>
               Street 36, Guild Wall London, UK
             </Text>

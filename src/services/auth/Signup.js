@@ -61,7 +61,7 @@ const SignUp = ({navigation}) => {
         // dispatch(updateUserId(json._id))
         navigation.navigate(RouteNames.LoginScreen);
       } else {
-        alert(json.message);
+        // alert(json.message);
       }
     } catch (error) {
       alert(error.message);
