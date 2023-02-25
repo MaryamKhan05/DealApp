@@ -83,14 +83,17 @@ const PromotionItems = ({Data}) => {
             name="heart"
           />
         </TouchableOpacity>
-        {console.log('my image='+ `${Api}${item.storeId.storeImage}`)}
+        {console.log('my image=' + `${Api}${item.storeId.storeImage}`)}
+
         <Image
-          source={`${Api}${item.storeId.storeImage}`}
+          source={{
+            uri: `${Api}${item.storeId.storeImage}`,
+          }}
           style={styles.image}
         />
         <View style={styles.detailsContainer}>
           <Text style={styles.headerText}>{item.storeId.storeName}</Text>
-          <Text style={styles.discountedPriceText}>{item.discountPrice}</Text>
+          <Text style={styles.discountedPriceText}>{item.dealId.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -99,12 +102,13 @@ const PromotionItems = ({Data}) => {
     <View style={styles.flatListContainer}>
       {!isloading ? (
         <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
+          // horizontal
+          // showsHorizontalScrollIndicator={true}
           data={Data}
           renderItem={renderItem}
           keyExtractor={item => item._id}
           handleDeleteFav={handleDeleteFav}
+          numColumns={2}
         />
       ) : (
         <ActivityIndicator />

@@ -1,5 +1,5 @@
 //import liraries
-import React,{ useEffect } from 'react';
+import React,{ useContext, useEffect } from 'react';
 import {View, TouchableOpacity, Text, Image, SafeAreaView} from 'react-native';
 import styles from './styles';
 import {Icon} from 'react-native-elements';
@@ -12,17 +12,16 @@ import {removeToken} from '../../storage/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserId, updateUserToken } from '../../storage/Reducer';
 import { ToastAndroid } from 'react-native';
+import SearchContext from '../../context/searchContext';
 
 
 const ProfileViewScreen = ({navigation}) => {
-  const userToken=useSelector((state)=>state.reducer.userToken)
-  const dispatch= useDispatch()
-  
+  const {userid, usertoken} = useContext(SearchContext);
 
   useEffect(()=>{
-if(!userToken){
-  navigation.navigate(RouteNames.LoginScreen)
-  ToastAndroid.show('You Need To Login Or Create Account',ToastAndroid.SHORT)
+if (!usertoken) {
+  navigation.replace(RouteNames.LoginScreen);
+  ToastAndroid.show('You Need To Login Or Create Account', ToastAndroid.SHORT);
 }
   },[])
 

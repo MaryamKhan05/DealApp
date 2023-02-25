@@ -55,8 +55,8 @@ const [isLoading, setIsLoading] = useState(true);
             setIsLoading(false);
             console.log(
               'here im WITH are you able to find out',
-              location.latitude,
-              location.longitude,
+              location?.latitude,
+              location?.longitude,
             );
             getStoreData();
             getProductData()
@@ -77,8 +77,8 @@ const [isLoading, setIsLoading] = useState(true);
 const handleSearch=(val)=>{
   // console.log(val)
   if(val.trim()!=''){
-    const newproduct = products.filter(
-      item => item.productId.name.trim().toLowerCase().includes(val.trim().toLowerCase())
+    const newproduct = products?.filter(
+      item => item?.productId.name.trim().toLowerCase().includes(val.trim().toLowerCase())
     );
     const newstore = stores.filter(item =>
       item.storeId.storeName
@@ -91,6 +91,7 @@ const handleSearch=(val)=>{
   } 
   else{
     setFilterProduct(products)
+    setFilterStore(stores)
   }
 }
 const getStoreData=async()=>{
@@ -121,8 +122,10 @@ const getStoreData=async()=>{
 const getProductData=async()=>{
   const url = `${Api}User/getNearbyDealsProducts`;
   const data = {
-    lat: location.latitude,
-    lng: location.longitude,
+    // lat: location?.latitude,
+    // lng: location?.longitude,
+    lat: '33.5700346784227',
+    lng: '73.0165566772461',
   };
   try {
     

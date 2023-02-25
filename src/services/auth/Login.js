@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {StyleSheet, SafeAreaView, TouchableOpacity, Text} from 'react-native';
 import {storeToken} from '../../storage/storage';
 import {getToken} from '../../storage/storage';
@@ -9,57 +9,37 @@ import RouteNames from '../constants/route-names';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserId, updateUserToken } from '../../storage/Reducer';
+import API from '../../../Api'
+import SearchContext from '../../context/searchContext';
 const Login = ({navigation}) => {
-const token= useSelector((state)=>state.userToken)
-const dispatch= useDispatch()
+const {savelogindata}=useContext(SearchContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const storeData = async value => {
-    // console.log('in store');
-    try {
-      await AsyncStorage.setItem('@User_Token', value);
-      console.log('added successfully');
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
   
-  useEffect(() => {
-    
-      if (token) {
-        navigation.navigate(RouteNames.mainHomeScreen);
-      }
-  }, []);
+  
   const handleLogin = async () => {
     if (!email || !password) {
       alert('Please fill out all fields');
       return;
     }
     try {
-      const response = await fetch(
-        `https://project-production-7b65.up.railway.app/User/userSignin`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const response = await fetch(`${API}Admin/adminSignin`, {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+      });
       const json = await response.json();
       
       if (json.status === '200') {
-
+        savelogindata(json.token,json._id);
         console.log(json)
-      //  // storeToken(json);
-       await  AsyncStorage.setItem('@User_Token',json.token.toString() )
-        dispatch(updateUserToken(json.token.toString()))
-        await  AsyncStorage.setItem('@User_Id',json._id ) 
-        dispatch(updateUserId(json._id))
+      //  // storeToken(json); 
          navigation.navigate(RouteNames.mainHomeScreen);
       } else {
         alert('something went wrong');

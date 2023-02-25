@@ -43,7 +43,7 @@ const HomeBottomTabNavigation = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         component={App.StoreDetailScreen}
         name={RouteNames.storeDetailScreen}
         options={{
@@ -52,7 +52,7 @@ const HomeBottomTabNavigation = () => {
             <Ionicons size={size} color={color} name="search-circle" />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         component={App.Favorites}
         name={RouteNames.favoriteScreen}

@@ -12,6 +12,7 @@ import NavLink from '../../components/nav-link';
 import RouteNames from '../constants/route-names';
 import { useDispatch } from 'react-redux';
 import { updateUserId, updateUserToken } from '../../storage/Reducer';
+import Api from '../../../Api';
 
 const SignUp = ({navigation}) => {
   const dispatch=useDispatch()
@@ -20,14 +21,6 @@ const SignUp = ({navigation}) => {
   const [firstName, setFName] = useState('');
   const [lastName, setLName] = useState('');
 
-  const storeData = async value => {
-    try {
-      await AsyncStorage.setItem('@User_Token', value);
-      console.log('added successfully');
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
 
   const handleSubmit = async () => {
     if (!firstName || !lastName || !email || !password) {
@@ -35,21 +28,18 @@ const SignUp = ({navigation}) => {
       return;
     }
     try {
-      const response = await fetch(
-        `https://project-production-7b65.up.railway.app/User/userSignup`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            password,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const response = await fetch(`${Api}Admin/adminSignup`, {
+        method: 'POST',
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+      });
       const json = await response.json();
       if (json.status === '200') {
         // alert(json.status);
@@ -62,6 +52,7 @@ const SignUp = ({navigation}) => {
         navigation.navigate(RouteNames.LoginScreen);
       } else {
         // alert(json.message);
+        alert("some thing wrong happen")
       }
     } catch (error) {
       alert(error.message);

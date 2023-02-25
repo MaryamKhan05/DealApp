@@ -7,11 +7,41 @@ import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import {ActivityIndicator} from 'react-native-paper';
 import SearchContext from '../../context/searchContext';
+import Api from '../../../Api';
 
 const NearbyShopScreen = ({navigation}) => {
-  const {productsDeals, storeDeals} = useContext(SearchContext);
+  const {productsDeals, storeDeals, setProductDeals} =
+    useContext(SearchContext);
   const [location, setLocation] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+const getProductData = async () => {
+  const url = `${Api}/Admin/getAllOffersData`;
+  const data = {
+    lat: location.latitude,
+    lng: location.longitude,
+  };
+  try {
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+    // console.log(result)
+    setProductDeals(result.deals);
+    
+    // console.log("my producs",products)
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
+
+
   const requestFollowPermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -81,8 +111,8 @@ const NearbyShopScreen = ({navigation}) => {
           {productsDeals?.map(item => (
             <Marker
               coordinate={{
-                latitude: item.location.coordinates[1],
-                longitude: item.location.coordinates[0],
+                latitude: item.location?.coordinates[1],
+                longitude: item.location?.coordinates[0],
                 
               }}
             />

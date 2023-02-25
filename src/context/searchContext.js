@@ -1,11 +1,144 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import Api from '../../Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SearchContext = React.createContext();
 export const SearchProvider = ({children}) => {
   const [productsDeals,setProductDeals]=useState([]);
   const [storeDeals,setStoreDeals]=useState([]);
+  const [favproduct,setfavproduct]=useState([]);
+  const [favloading,setfavloading]=useState(true)
+const [favestore,setfavstore]=useState([])
+const [favstoreloading,setfavstoreloading]=useState(true)
+const [usertoken,setusertoken]=useState(null)
+const [userid,setuserid]=useState(null)
+  const addfavstore = async (offerId) => {
+    const url = `${Api}User/addFavStore`;
+    const data = {
+      userId: '63f85bc547ecd313489d0958',
+      offerId: offerId,
+    };
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      console.log(result)
+      // getfavProducts()
+      // console.log("my Store",stores)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const addfavProducts = async (offerId) => {
+    const url = `${Api}User/addFavProduct`;
+    const data = {
+      userId: userid,
+      offerId: offerId,
+    };
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      console.log(result)
+      getfavProducts()
+      // console.log("my Store",stores)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const getfavstore = async (offerId) => {
+    const url = `${Api}User/getFavStore`;
+    const data = {
+      id: userid,
+    };
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      // console.log(result)
+      setfavstore(result.favStore);
+      setfavloading(false)
+      // console.log("my Store",stores)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const getfavProducts = async (offerId) => {
+    const url = `${Api}User/getAllFavProducts`;
+    const data = {
+      userId: userid,
+    };
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      // console.log(result)
+      setfavproduct(result.favProds);
+      setfavloading(false)
+      // console.log("my Store",stores)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
+const savelogindata=async (token,id)=>{
+  const value={
+    id:id,
+    token:token
+  }
+  console.log(value)
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem('@User_Key3', jsonValue)
+    setuserid(value.id)
+    setusertoken(value.token)
+  } catch (e) {
+    // saving error
+    console.log("error here")
+  }
+}
+
+
+
+  const getusertoken = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@User_Key3');
+      const data= jsonValue != null ? JSON.parse(jsonValue) : null;
+      if(data!= null){
+        setuserid(data.id)
+        setusertoken(data.token)
+        alert(data.id)
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+  useEffect(()=>{
+getfavProducts();
+getusertoken();
+  },[])
   // const [deals, setDeals] = useState();
   // const [items, setItems] = useState([]);
   // const [token, setToken] = useState(
@@ -127,7 +260,14 @@ export const SearchProvider = ({children}) => {
         setProductDeals,
         productsDeals,
         setStoreDeals,
-        storeDeals
+        storeDeals,
+        addfavProducts,
+        favproduct,
+        setfavproduct,
+        favloading,
+        savelogindata,
+        userid,
+        usertoken,
       }}>
       {children}
     </SearchContext.Provider>
