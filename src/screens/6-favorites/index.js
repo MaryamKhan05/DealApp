@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import RouteNames from '../../services/constants/route-names';
 
 const FavoritesScreen = () => {
-    const {userid, usertoken} = useContext(SearchContext);
+    const {userid, usertoken,favestore} = useContext(SearchContext);
 const navigation=useNavigation()
     useEffect(() => {
       if (!usertoken) {
@@ -27,9 +27,9 @@ const navigation=useNavigation()
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.blue, flex: 1}}>
-      <ScrollView
+      {/* <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}> */}
         <View style={styles.container}>
           <View style={styles.homeHeaderContainer}>
             <View style={styles.userDetailContainer}>
@@ -68,13 +68,13 @@ const navigation=useNavigation()
           <View style={styles.listHeaderContainer}>
             <Text style={styles.headerText}>Favourite Stores</Text>
           </View>
-          <PromotionItems />
+          {/* <PromotionItems Data={favestore} /> */}
           <View style={styles.listHeaderContainer}>
             <Text style={styles.headerText}>Favourite Products</Text>
           </View>
           <ProductItems data={[1, 2, 3, 4, 5, 6]} />
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };

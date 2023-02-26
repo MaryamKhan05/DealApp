@@ -16,8 +16,8 @@ const [userid,setuserid]=useState(null)
   const addfavstore = async (offerId) => {
     const url = `${Api}User/addFavStore`;
     const data = {
-      userId: '63f85bc547ecd313489d0958',
-      offerId: offerId,
+      userId: userid,
+      dealId: offerId,
     };
     try {
       const response = await fetch(url, {
@@ -30,11 +30,16 @@ const [userid,setuserid]=useState(null)
       const result = await response.json();
       console.log(result)
       // getfavProducts()
+      getfavstore()
       // console.log("my Store",stores)
     } catch (error) {
       console.log(error.message);
     }
   };
+
+
+
+  
   const addfavProducts = async (offerId) => {
     const url = `${Api}User/addFavProduct`;
     const data = {
@@ -57,10 +62,10 @@ const [userid,setuserid]=useState(null)
       console.log(error.message);
     }
   };
-  const getfavstore = async (offerId) => {
-    const url = `${Api}User/getFavStore`;
+  const getfavstore = async () => {
+    const url = `${Api}User/getAllFavStore`;
     const data = {
-      id: userid,
+      userId: userid,
     };
     try {
       const response = await fetch(url, {
@@ -71,8 +76,8 @@ const [userid,setuserid]=useState(null)
         },
       });
       const result = await response.json();
-      // console.log(result)
-      setfavstore(result.favStore);
+      console.log(result)
+      setfavstore(result.stores);
       setfavloading(false)
       // console.log("my Store",stores)
     } catch (error) {
@@ -137,6 +142,7 @@ const savelogindata=async (token,id)=>{
   };
   useEffect(()=>{
 getfavProducts();
+getfavstore();
 getusertoken();
   },[])
   // const [deals, setDeals] = useState();
@@ -268,6 +274,8 @@ getusertoken();
         savelogindata,
         userid,
         usertoken,
+        addfavstore,
+        favestore
       }}>
       {children}
     </SearchContext.Provider>

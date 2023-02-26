@@ -9,73 +9,39 @@ import {ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchContext from '../../context/searchContext';
 import Api from '../../../Api';
+import { useNavigation } from '@react-navigation/native';
+import RouteNames from '../../services/constants/route-names';
 
 const PromotionItems = ({Data}) => {
-  console.log("my Data is here", Data)
-  const [deals, setDeals] = useState([]);
-  const [isloading, setIsLoading] = useState(true);
-  const filteredDeals = useContext(SearchContext);
+  const [isloading, setIsLoading] = useState(false);
+  const {addfavstore, userid, favestore} = useContext(SearchContext);
+const navigation = useNavigation();
 
-  const [token, setToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I5M2ZmOWJmYTBmNTlkZGM0ZTBjNjgiLCJpYXQiOjE2NzM1MDExMzd9.RShrwmDdUOqQA4nans4-3gWGZMvD0kRrXlf8IGVil_0',
-  );
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  };
-  useEffect(() => {
-    fetch(
-      'https://project-production-7b65.up.railway.app/User/getAllFavStore',
-      {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          userId: token,
-        }),
-      },
-    )
-      .then(response => response.json())
-      .then(json => setDeals(json))
-      .finally(() => setIsLoading(false))
-      .catch(errr => alert(errr.message));
-  }, []);
+  const handlefavorit=(id, item)=>{
+    console.log(item);
+if (userid) {
+  // alert(id);
+ const finder = favestore?.some(item => item?.dealId._id == id);
+ if(finder){
+  alert("find")
+ }
+ else{
+  addfavstore(id)
+  // console.log(finder)
+ }
 
-  const storeData = async value => {
-    try {
-      await AsyncStorage.setItem('@User_Token', value);
-      console.log('added successfully');
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  const handleDeleteFav = async storeId => {
-    try {
-      const response = await fetch(
-        `https://project-production-7b65.up.railway.app/User/deleteFavStore`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            id: storeId,
-          }),
-          headers,
-        },
-      );
-
-      const json = await response.json();
-      // alert(json.status);
-      console.log(json);
-    } catch (error) {
-      // alert(error.message);
-    }
-  };
+} else {
+  // alert(userid);
+   navigation.navigate(RouteNames.LoginScreen);
+}
+  }
 
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity style={styles.container}>
         <TouchableOpacity
           style={styles.heartIcon}
-          onPress={() => handleDeleteFav(item.storeId._id)}>
+          onPress={() => handlefavorit(item.dealId._id, item)}>
           <Icon
             type="entypo"
             size={responsiveFontSize(2)}
@@ -107,7 +73,7 @@ const PromotionItems = ({Data}) => {
           data={Data}
           renderItem={renderItem}
           keyExtractor={item => item._id}
-          handleDeleteFav={handleDeleteFav}
+          // handleDeleteFav={handleDeleteFav}
           numColumns={2}
         />
       ) : (

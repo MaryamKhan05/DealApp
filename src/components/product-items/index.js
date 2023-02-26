@@ -34,7 +34,7 @@ const ProductItems = () => {
       <TouchableOpacity style={styles.container}>
         <Image
           source={{
-            uri: `${Api}${item.offerId.productId.image}`,
+            uri: `${Api}${item.offerId?.productId?.image}`,
           }}
           style={styles.image}
         />
@@ -59,7 +59,7 @@ const ProductItems = () => {
           <View style={styles.row}>
             <View style={styles.priceContainer}>
               <Text style={styles.discountedPriceText}>
-                $ {item?.offerId.productId.orignalPrice}
+                $ {item?.offerId?.productId?.orignalPrice}
               </Text>
             </View>
           </View>
